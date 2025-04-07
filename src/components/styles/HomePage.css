@@ -1,0 +1,72 @@
+
+
+/* Container styles to center content, full viewport height, and background gradient */
+.home-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background: linear-gradient(to right, #ebf8ff, #bee3f8); /* approximate gradient from blue-100 to blue-200 */
+    color: #2d3748; /* gray-800 */
+    text-align: center;
+    padding: 20px;
+  }
+  
+  /* Title styles: large, bold text with bottom margin */
+  .home-title {
+    font-size: 2.5rem; /* approximates Tailwind's text-4xl */
+    font-weight: bold;
+    margin-bottom: 1.5rem;
+  }
+  
+  /* Description styles: slightly larger text, centered, with bottom margin and max width */
+  .home-description {
+    font-size: 1.125rem; /* approximates Tailwind's text-lg */
+    margin-bottom: 2rem;
+    max-width: 28rem; /* approximates Tailwind's max-w-md */
+  }
+  
+  /* Container for links with horizontal spacing */
+  .home-links {
+    display: flex;
+    gap: 1rem; /* equivalent to Tailwind's space-x-4 */
+  }
+  
+  /* General styles for the links (buttons) */
+  .home-link {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    font-weight: 600;
+    border-radius: 0.375rem; /* approximates Tailwind's rounded */
+    text-decoration: none;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s, opacity 0.3s;
+  }
+  
+  /* Hover effect: slightly lower opacity */
+  .home-link:hover {
+    opacity: 0.9;
+  }
+  
+  /* Specific styles for the Home button */
+  .home-link-home {
+    background-color: #ffffff;
+    color: #3182ce; /* approximates blue-600 */
+    border: 1px solid #e2e8f0;
+  }
+  
+  /* Specific styles for the Register button */
+  .home-link-register {
+    background-color: #3182ce; /* approximates blue-500 */
+    color: #ffffff;
+    border: 1px solid #3182ce;
+  }
+  
+  /* Specific styles for the Login button */
+  .home-link-login {
+    background-color: #38a169; /* approximates green-500 */
+    color: #ffffff;
+    border: 1px solid #38a169;
+  }
+  
