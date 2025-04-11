@@ -34,3 +34,13 @@ export const loginUser = async (credentials) => {
     throw error.response?.data?.message || "Login failed";
   }
 };
+
+export const updateShippingAddress = async (addressData) => {
+  try {
+    const response = await apiClient.put("users/update-address", addressData);
+    const { message, user } = response.data;
+    return { message, user };
+  } catch (error) {
+    throw error.response?.data?.message || "Failed to update shipping address";
+  }
+};
