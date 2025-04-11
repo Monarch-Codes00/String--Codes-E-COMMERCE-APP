@@ -18,7 +18,6 @@ export const registerUser = async (userData) => {
 export const loginUser = async (credentials) => {
   try {
     const response = await apiClient.post("/users/login", credentials);
-    // Destructure the response with the correct keys:
     const { message, token, userFound } = response.data;
     return {
       message,
@@ -27,6 +26,8 @@ export const loginUser = async (credentials) => {
         fullName: userFound.fullName,
         email: userFound.email,
         id: userFound._id,
+        createdAt: userFound.createdAt,
+        ShippingAddress: userFound.hasShippingAddress,
       },
     };
   } catch (error) {

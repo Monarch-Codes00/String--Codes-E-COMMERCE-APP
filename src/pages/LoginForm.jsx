@@ -11,7 +11,7 @@ import { useAuth } from "../contexts/AuthContext";
 
 const LoginForm = () => {
   const navigate = useNavigate();
-  const { user, setUser } = useAuth();
+  const { user, login } = useAuth(); // use login function instead of setUser
   const [loading, setLoading] = useState(false);
 
   const {
@@ -24,7 +24,7 @@ const LoginForm = () => {
     defaultValues: { email: "", password: "" },
   });
 
-  // ✅ Redirect if already logged in
+  // Redirect if already logged in
   useEffect(() => {
     if (user) {
       navigate("/dashboard");
@@ -41,12 +41,12 @@ const LoginForm = () => {
       localStorage.setItem("token", token);
       localStorage.setItem("user", JSON.stringify(user));
 
-      // ✅ Update context immediately
-      setUser(user);
+      // Update context using login helper
+      login(user);
 
       reset();
 
-      // Navigate after context is updated
+      // Navigate immediately after context is updated
       navigate("/dashboard");
     } catch (error) {
       const errorMessage = typeof error === "string" ? error : error.message;

@@ -29,7 +29,6 @@ const UserRegistrationForm = () => {
       toast.success(message);
       console.log("Registered User:", user);
 
-      // Store the registered user in localStorage (optional, for later use)
       localStorage.setItem("user", JSON.stringify(user));
 
       reset(); // reset
