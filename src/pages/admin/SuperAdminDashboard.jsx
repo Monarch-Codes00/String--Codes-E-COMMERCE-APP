@@ -1,4 +1,5 @@
 import { useAuth } from "../../contexts/AuthContext";
+import { Link, Outlet } from "react-router-dom";
 import "../../components/styles/SuperAdminDashboard.css";
 
 const SuperAdminDashboard = () => {
@@ -14,28 +15,28 @@ const SuperAdminDashboard = () => {
         <nav className="sidebar-nav">
           <ul>
             <li>
-              <a href="/superadmin-dashboard">Dashboard</a>
+              <Link to="/superadmin-dashboard">Dashboard</Link>
             </li>
             <li>
-              <a href="/superadmin-dashboard/products">Products</a>
+              <Link to="/superadmin-dashboard/products">Products</Link>
             </li>
             <li>
-              <a href="/superadmin-dashboard/users">Users</a>
+              <Link to="/superadmin-dashboard/users">Users</Link>
             </li>
             <li>
-              <a href="/superadmin-dashboard/orders">Orders</a>
+              <Link to="/superadmin-dashboard/orders">Orders</Link>
             </li>
             <li>
-              <a href="/superadmin-dashboard/colors">Colors</a>
+              <Link to="/superadmin-dashboard/colors">Colors</Link>
             </li>
             <li>
-              <a href="/superadmin-dashboard/brands">Brands</a>
+              <Link to="/superadmin-dashboard/brands">Brands</Link>
             </li>
             <li>
-              <a href="/superadmin-dashboard/reviews">Reviews</a>
+              <Link to="/superadmin-dashboard/reviews">Reviews</Link>
             </li>
             <li>
-              <a href="/superadmin-dashboard/statistics">Statistics</a>
+              <Link to="/superadmin-dashboard/statistics">Statistics</Link>
             </li>
           </ul>
         </nav>
@@ -48,7 +49,7 @@ const SuperAdminDashboard = () => {
           <p>You have admin privileges.</p>
         </header>
 
-        {/* Stats Cards */}
+        {/* Stats Cards - shown on the main dashboard */}
         <section className="stats-container">
           <div className="stat-card">
             <h3>Total Users</h3>
@@ -66,6 +67,11 @@ const SuperAdminDashboard = () => {
             <h3>Total Revenue</h3>
             <p>$76,230</p>
           </div>
+        </section>
+
+        {/* Nested route outlet - when a sidebar link is clicked */}
+        <section className="admin-nested-content">
+          <Outlet />
         </section>
       </main>
     </div>

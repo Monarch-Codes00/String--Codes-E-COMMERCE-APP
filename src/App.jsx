@@ -13,9 +13,10 @@ import ProfilePage from "./pages/Profile";
 import LoginForm from "./pages/LoginForm";
 import UserRegistrationForm from "./pages/UserRegistrationForm";
 import HomePage from "./pages/HomePage";
+import SuperAdminDashboard from "./pages/admin/SuperAdminDashboard";
 
 import { Toaster } from "react-hot-toast";
-import SuperAdminDashboard from "./pages/admin/SuperAdminDashboard";
+import CreateProductForm from "./pages/admin/CreateProductForm";
 
 const App = () => {
   return (
@@ -45,17 +46,22 @@ const App = () => {
               </ProtectedRoute>
             }
           />
+
+          {/* Nested Routes for Super Admin Dashboard */}
           <Route
-            path="/superadmin-dashboard"
+            path="/superadmin-dashboard/*"
             element={
               <ProtectedRoute>
                 <SuperAdminDashboard />
               </ProtectedRoute>
             }
-          />
+          >
+            <Route path="products" element={<CreateProductForm />} />
+            {/* Add additional nested routes for users, orders, colors, brands, reviews, statistics here */}
+          </Route>
 
           {/* Fallback route */}
-          <Route path="*" element={<Navigate to="/" />} />
+          <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </Router>
     </AuthProvider>
