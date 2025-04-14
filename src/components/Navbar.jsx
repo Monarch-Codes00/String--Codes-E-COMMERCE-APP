@@ -7,13 +7,22 @@ const Navbar = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  // Handle clicking on the brand link
+  // Handle clicking on the brand link.
   const handleBrandClick = (e) => {
     e.preventDefault();
+
     if (user) {
-      // If logged in and not already on dashboard, navigate to dashboard.
-      if (location.pathname !== "/dashboard") {
-        navigate("/dashboard");
+      // If the user is logged in, check if they are an admin.
+      if (user.isAdmin) {
+        // Navigate to the Super Admin Dashboard if it's not already active.
+        if (location.pathname !== "/superadmin-dashboard") {
+          navigate("/superadmin-dashboard");
+        }
+      } else {
+        // For normal users, navigate to the regular dashboard.
+        if (location.pathname !== "/dashboard") {
+          navigate("/dashboard");
+        }
       }
     } else {
       // If not logged in, navigate to the public home page.
@@ -29,12 +38,12 @@ const Navbar = () => {
   return (
     <nav className="navbar">
       <div className="navbar-brand">
-        {/* Use an <a> without a real href and handle the click event */}
+        {/* An anchor tag styled as a link without an actual href */}
         <a
           style={{ textDecoration: "none", cursor: "pointer" }}
           onClick={handleBrandClick}
         >
-          🏠Stringcode
+          🏠 Stringcode
         </a>
       </div>
       {user && (
