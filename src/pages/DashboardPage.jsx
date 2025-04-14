@@ -1,8 +1,11 @@
 import { useAuth } from "../contexts/AuthContext";
+import { useState } from "react";
+import ShippingAddressForm from "../pages/ShippingAddressForm";
 import "../components/styles/DashboardPage.css";
 
 const DashboardPage = () => {
   const { user } = useAuth();
+  const [showForm, setShowForm] = useState(false);
 
   return (
     <div className="dashboard-container">
@@ -21,7 +24,7 @@ const DashboardPage = () => {
             <strong>Email:</strong> {user?.email}
           </p>
           <p>
-            <strong>Role:</strong> {user?.isAdmin ? "Admin" : "Customer "}
+            <strong>Role:</strong> {user?.isAdmin ? "Admin" : "Customer"}
           </p>
           <p>
             <strong>Account Created:</strong>{" "}
@@ -54,11 +57,42 @@ const DashboardPage = () => {
         {user?.isAdmin && (
           <button className="action-btn">Go to Admin Panel</button>
         )}
+        <button onClick={() => setShowForm(!showForm)} className="action-btn">
+          {user?.hasShippingAddress
+            ? "Update Shipping Address"
+            : "Add Shipping Address"}
+        </button>
       </section>
+
+      {user?.hasShippingAddress && !showForm && (
+        <section className="dashboard-shipping">
+          <h2>Shipping Address</h2>
+          <p>
+            {user.shippingAddress.firstName} {user.shippingAddress.lastName}
+          </p>
+          <p>{user.shippingAddress.address}</p>
+          <p>
+            {user.shippingAddress.city}, {user.shippingAddress.state},{" "}
+            {user.shippingAddress.country}
+          </p>
+          <p>{user.shippingAddress.postalCode}</p>
+          <p>{user.shippingAddress.phone}</p>
+        </section>
+      )}
+
+      {showForm && (
+        <ShippingAddressForm
+          user={user}
+          login={(updatedUser) => {
+            // Optionally update your global auth context if needed.
+            // This should update the state so that user.hasShippingAddress reflects the latest data.
+            console.log("Updated user:", updatedUser);
+          }}
+          setShowForm={setShowForm}
+        />
+      )}
     </div>
   );
 };
 
 export default DashboardPage;
-
-

@@ -27,6 +27,8 @@ export const loginUser = async (credentials) => {
         email: userFound.email,
         id: userFound._id,
         createdAt: userFound.createdAt,
+        isAdmin: userFound.isAdmin,
+
         ShippingAddress: userFound.hasShippingAddress,
       },
     };
@@ -37,7 +39,7 @@ export const loginUser = async (credentials) => {
 
 export const updateShippingAddress = async (addressData) => {
   try {
-    const response = await apiClient.put("users/update-address", addressData);
+    const response = await apiClient.put("/users/update-address", addressData);
     const { message, user } = response.data;
     return { message, user };
   } catch (error) {
