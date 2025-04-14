@@ -17,6 +17,7 @@ import SuperAdminDashboard from "./pages/admin/SuperAdminDashboard";
 
 import { Toaster } from "react-hot-toast";
 import CreateProductForm from "./pages/admin/CreateProductForm";
+import AdminProtectedRoute from "./routes/AdminProtectedRoute";
 
 const App = () => {
   return (
@@ -51,9 +52,9 @@ const App = () => {
           <Route
             path="/superadmin-dashboard/*"
             element={
-              <ProtectedRoute>
+              <AdminProtectedRoute>
                 <SuperAdminDashboard />
-              </ProtectedRoute>
+              </AdminProtectedRoute>
             }
           >
             <Route path="products" element={<CreateProductForm />} />
