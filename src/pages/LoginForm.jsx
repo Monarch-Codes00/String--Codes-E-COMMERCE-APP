@@ -11,7 +11,7 @@ import { useAuth } from "../contexts/AuthContext";
 
 const LoginForm = () => {
   const navigate = useNavigate();
-  const { user, login } = useAuth(); // use login function instead of setUser
+  const { user, login, setUser } = useAuth();
   const [loading, setLoading] = useState(false);
 
   const {
@@ -27,7 +27,12 @@ const LoginForm = () => {
   // Redirect if already logged in
   useEffect(() => {
     if (user) {
-      navigate("/dashboard");
+      // Check if user is admin
+      if (user.isAdmin) {
+        navigate("/superadmin-dashboard");
+      } else {
+        navigate("/dashboard");
+      }
     }
   }, [user, navigate]);
 
@@ -37,17 +42,21 @@ const LoginForm = () => {
       const { message, token, user } = await loginUser(data);
       toast.success(message);
 
-      // Save to localStorage
+      // Save token and user in localStorage
       localStorage.setItem("token", token);
       localStorage.setItem("user", JSON.stringify(user));
 
-      // Update context using login helper
+      // Update context
       login(user);
 
       reset();
 
-      // Navigate immediately after context is updated
-      navigate("/dashboard");
+      // Conditional navigation based on admin flag
+      if (user.isAdmin) {
+        navigate("/superadmin-dashboard");
+      } else {
+        navigate("/dashboard");
+      }
     } catch (error) {
       const errorMessage = typeof error === "string" ? error : error.message;
       toast.error(errorMessage);
