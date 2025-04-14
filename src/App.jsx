@@ -13,19 +13,22 @@ import ProfilePage from "./pages/Profile";
 import LoginForm from "./pages/LoginForm";
 import UserRegistrationForm from "./pages/UserRegistrationForm";
 import HomePage from "./pages/HomePage";
+
 import { Toaster } from "react-hot-toast";
+import SuperAdminDashboard from "./pages/admin/SuperAdminDashboard";
 
 const App = () => {
   return (
     <AuthProvider>
       <Router>
         <Navbar />
-
         <Toaster position="top-right" />
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/login" element={<LoginForm />} />
           <Route path="/register" element={<UserRegistrationForm />} />
+
+          {/* Protected routes */}
           <Route
             path="/profile"
             element={
@@ -42,6 +45,16 @@ const App = () => {
               </ProtectedRoute>
             }
           />
+          <Route
+            path="/superadmin-dashboard"
+            element={
+              <ProtectedRoute>
+                <SuperAdminDashboard />
+              </ProtectedRoute>
+            }
+          />
+
+          {/* Fallback route */}
           <Route path="*" element={<Navigate to="/" />} />
         </Routes>
       </Router>
