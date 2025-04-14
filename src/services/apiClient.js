@@ -2,7 +2,7 @@ import axios from "axios";
 import appConfig from "../config/appConfig";
 
 const apiClient = axios.create({
-  baseURL: appConfig.API_BASE_URL, // I set  set baseURL based on env Dynamically.
+  baseURL: appConfig.API_BASE_URL, // I set baseURL based on env Dynamically.
   headers: {
     "Content-Type": "application/json",
   },
