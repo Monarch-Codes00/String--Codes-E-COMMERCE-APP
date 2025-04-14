@@ -21,7 +21,7 @@ export const fetchCategories = async () => {
     const response = await apiClient.get("/categories");
     return response.data.categories;
   } catch (error) {
-    throw "Failed to fetch categories "+error;
+    throw "Failed to fetch categories " + error;
   }
 };
 
@@ -31,7 +31,7 @@ export const fetchBrands = async () => {
     const response = await apiClient.get("/brands");
     return response.data.brands;
   } catch (error) {
-    throw "Failed to fetch brands "+error;
+    throw "Failed to fetch brands " + error;
   }
 };
 
@@ -41,26 +41,26 @@ export const fetchColors = async () => {
     const response = await apiClient.get("/colors");
     return response.data.colors;
   } catch (error) {
-    throw "Failed to fetch colors "+error;
+    throw "Failed to fetch colors " + error;
   }
 };
 
 // Fetch list of users (for statistics)
 export const fetchUsersList = async () => {
-    try {
-      const response = await apiClient.get("/users/list");
-      return response.data.users || [];
-    } catch (error) {
-      throw error.response?.data?.message || "Failed to fetch users list";
-    }
-  };
-  
-  // Fetch list of products (for statistics)
+  try {
+    const response = await apiClient.get("/users/list");
+    return response.data.data || [];
+  } catch (error) {
+    throw error.response?.data?.message || "Failed to fetch users list";
+  }
+};
+
+// Fetch list of products (for statistics)
 export const fetchProductsList = async () => {
-    try {
-      const response = await apiClient.get("/products/");
-      return response.data.products || [];
-    } catch (error) {
-      throw error.response?.data?.message || "Failed to fetch products list";
-    }
-  };
+  try {
+    const response = await apiClient.get("/products/");
+    return response.data.products || [];
+  } catch (error) {
+    throw error.response?.data?.message || "Failed to fetch products list";
+  }
+};
