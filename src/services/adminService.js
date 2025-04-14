@@ -49,10 +49,18 @@ export const fetchColors = async () => {
 export const fetchUsersList = async () => {
     try {
       const response = await apiClient.get("/users/list");
-      // Assuming response.data contains a property `users` that is an array.
       return response.data.users || [];
     } catch (error) {
       throw error.response?.data?.message || "Failed to fetch users list";
     }
   };
   
+  // Fetch list of products (for statistics)
+export const fetchProductsList = async () => {
+    try {
+      const response = await apiClient.get("/products/");
+      return response.data.products || [];
+    } catch (error) {
+      throw error.response?.data?.message || "Failed to fetch products list";
+    }
+  };
