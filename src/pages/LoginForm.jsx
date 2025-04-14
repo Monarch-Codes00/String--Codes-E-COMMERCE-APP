@@ -11,7 +11,7 @@ import { useAuth } from "../contexts/AuthContext";
 
 const LoginForm = () => {
   const navigate = useNavigate();
-  const { user, login, setUser } = useAuth();
+  const { user, login } = useAuth();
   const [loading, setLoading] = useState(false);
 
   const {
