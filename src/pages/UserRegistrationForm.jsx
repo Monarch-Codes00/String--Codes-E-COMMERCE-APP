@@ -25,7 +25,7 @@ const UserRegistrationForm = () => {
   const onSubmit = async (data) => {
     setLoading(true);
     try {
-      const { message, user } = await registerUser(data);
+      const { message, user } = await registerUser(data);0
       toast.success(message);
       console.log("Registered User:", user);
 
@@ -86,3 +86,4 @@ const UserRegistrationForm = () => {
 };
 
 export default UserRegistrationForm;
+``

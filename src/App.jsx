@@ -4,7 +4,7 @@ import {
   Route,
   Navigate,
 } from "react-router-dom";
-import { AuthProvider } from "./contexts/AuthContext";
+import { AuthProvider, useAuth } from "./contexts/AuthContext";
 import ProtectedRoute from "./routes/ProtectedRoute";
 import Navbar from "./components/Navbar";
 
@@ -19,54 +19,75 @@ import { Toaster } from "react-hot-toast";
 import CreateProductForm from "./pages/admin/CreateProductForm";
 import AdminProtectedRoute from "./routes/AdminProtectedRoute";
 
+import ProductList from "./pages/ProductList";
+import ProductDetail from "./pages/ProductDetail";
+import Cart from "./pages/Cart";
+import Checkout from "./pages/Checkout";
+import Wishlist from "./pages/Wishlist";
+
+const AppRoutes = () => {
+  const { user } = useAuth();
+
+  return (
+    <Routes>
+      <Route
+        path="/"
+        element={user ? <Navigate to="/products" /> : <HomePage />}
+      />
+      <Route path="/login" element={<LoginForm />} />
+      <Route path="/register" element={<UserRegistrationForm />} />
+      {/* Protected routes */}
+      <Route
+        path="/profile"
+        element={
+          <ProtectedRoute>
+            <ProfilePage />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/dashboard"
+        element={
+          <ProtectedRoute>
+            <DashboardPage />
+          </ProtectedRoute>
+        }
+      />
+      {/* Nested Routes for Super Admin Dashboard */}
+      <Route
+        path="/superadmin-dashboard/*"
+        element={
+          <AdminProtectedRoute>
+            <SuperAdminDashboard />
+          </AdminProtectedRoute>
+        }
+      >
+        <Route path="products" element={<CreateProductForm />} />
+        {/* Add additional nested routes for users, orders, colors, brands, reviews, statistics here */}
+      </Route>
+      {/* Fallback route */}
+      <Route path="*" element={<Navigate to="/" replace />} />
+      {/* E-commerce routes */}
+      <Route path="/products" element={<ProductList />} />
+      <Route path="/product/:id" element={<ProductDetail />} />
+      <Route path="/cart" element={<Cart />} />
+      <Route path="/checkout" element={<Checkout />} />
+      <Route path="/wishlist" element={<Wishlist />} />
+    </Routes>
+  );
+};
+
 const App = () => {
   return (
     <AuthProvider>
       <Router>
         <Navbar />
         <Toaster position="top-right" />
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/login" element={<LoginForm />} />
-          <Route path="/register" element={<UserRegistrationForm />} />
-
-          {/* Protected routes */}
-          <Route
-            path="/profile"
-            element={
-              <ProtectedRoute>
-                <ProfilePage />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/dashboard"
-            element={
-              <ProtectedRoute>
-                <DashboardPage />
-              </ProtectedRoute>
-            }
-          />
-
-          {/* Nested Routes for Super Admin Dashboard */}
-          <Route
-            path="/superadmin-dashboard/*"
-            element={
-              <AdminProtectedRoute>
-                <SuperAdminDashboard />
-              </AdminProtectedRoute>
-            }
-          >
-            <Route path="products" element={<CreateProductForm />} />
-            {/* Add additional nested routes for users, orders, colors, brands, reviews, statistics here */}
-          </Route>
-
-          {/* Fallback route */}
-          <Route path="*" element={<Navigate to="/" replace />} />
-        </Routes>
+        <AppRoutes />
       </Router>
     </AuthProvider>
   );
 };
 
 export default App;
+

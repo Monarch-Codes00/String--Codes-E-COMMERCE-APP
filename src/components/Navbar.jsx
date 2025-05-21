@@ -19,9 +19,9 @@ const Navbar = () => {
           navigate("/superadmin-dashboard");
         }
       } else {
-        // For normal users, navigate to the regular dashboard.
-        if (location.pathname !== "/dashboard") {
-          navigate("/dashboard");
+        // For normal users, navigate to the product listing page.
+        if (location.pathname !== "/products") {
+          navigate("/products");
         }
       }
     } else {
