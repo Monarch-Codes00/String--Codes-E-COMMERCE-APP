@@ -1,6 +1,7 @@
 import { useAuth } from "../../contexts/AuthContext";
 import { useEffect, useState } from "react";
 import { fetchUsersList, fetchProductsList } from "../../services/adminService";
+import { fetchOrders } from "../../services/orderService";
 import { Outlet, Link } from "react-router-dom";
 import "../../components/styles/SuperAdminDashboard.css";
 import {
@@ -18,14 +19,13 @@ import {
 } from "recharts";
 import { ShoppingCart, Users, Truck, DollarSign } from "lucide-react";
 
-const COLORS = ["#3bc9db", "#e9ecef"];
+const COLORS = ["#3bc9db", "#6c757d", "#e9ecef"];
 
 const monthlyTarget = 1900000;
-const amountMade = 1200000; // Example amount made so far
 
 const targetData = [
-  { name: "Amount Made", value: amountMade, color: COLORS[0] },
-  { name: "Remaining", value: monthlyTarget - amountMade, color: COLORS[1] },
+  { name: "Amount Made", value: 1200000, color: COLORS[0] },
+  { name: "Remaining", value: monthlyTarget - 1200000, color: COLORS[1] },
 ];
 
 const revenueData = [
@@ -43,23 +43,41 @@ const SuperAdminDashboard = () => {
   const { user } = useAuth();
   const [userCount, setUserCount] = useState(0);
   const [productCount, setProductCount] = useState(0);
-  const [orderCount, setOrderCount] = useState(845); // Example static data
-  const [newCustomers, setNewCustomers] = useState(0); // Will be set dynamically from API
-  const [totalDelivery, setTotalDelivery] = useState(72000); // Static value, no API endpoint found
+  const [orderCount, setOrderCount] = useState(845); // Default static value
+  const [newCustomers, setNewCustomers] = useState(0);
+  const [totalDelivery, setTotalDelivery] = useState(72000); // Default static value
+  const [amountMade, setAmountMade] = useState(1200000); // Default static value
 
   useEffect(() => {
-    // Fetch users and products concurrently
+    // Fetch users, products, and orders concurrently
     const fetchStats = async () => {
       try {
-        const [users, products] = await Promise.all([
+        const [users, products, orders] = await Promise.all([
           fetchUsersList(),
           fetchProductsList(),
+          fetchOrders(),
         ]);
         setUserCount(users.length);
         setProductCount(products.length);
 
         // Set newCustomers dynamically from users count
         setNewCustomers(users.length);
+
+        // Set orderCount dynamically or fallback to default
+        setOrderCount(orders.length || 845);
+
+        // Calculate total revenue (amountMade) excluding tax or fallback to default
+        const totalRevenue = orders.reduce((sum, order) => {
+          const amountExcludingTax = order.totalAmount - (order.taxAmount || 0);
+          return sum + (amountExcludingTax > 0 ? amountExcludingTax : 0);
+        }, 0);
+        setAmountMade(totalRevenue > 0 ? totalRevenue : 1200000);
+
+        // Calculate total delivery (sum of delivery fees) or fallback to default
+        const totalDeliveryFees = orders.reduce((sum, order) => {
+          return sum + (order.deliveryFee || 0);
+        }, 0);
+        setTotalDelivery(totalDeliveryFees > 0 ? totalDeliveryFees : 72000);
       } catch (error) {
         console.error("Error fetching statistics:", error);
       }
@@ -80,7 +98,7 @@ const SuperAdminDashboard = () => {
               <Link to="/superadmin-dashboard">Dashboard</Link>
             </li>
             <li>
-              <Link to="/superadmin-dashboard/products">Products</Link>
+              <Link to="/admin/products">Products</Link>
             </li>
             <li>
               <Link to="/superadmin-dashboard/users">Users</Link>

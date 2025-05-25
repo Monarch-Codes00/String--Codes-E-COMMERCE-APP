@@ -19,6 +19,7 @@ import SuperAdminDashboard from "./pages/admin/SuperAdminDashboard";
 import { Toaster } from "react-hot-toast";
 import CreateProductForm from "./pages/admin/CreateProductForm";
 import AdminProtectedRoute from "./routes/AdminProtectedRoute";
+import ProductsPage from "./pages/admin/ProductsPage";
 
 import ProductList from "./pages/ProductList";
 import ProductDetail from "./pages/ProductDetail";
@@ -63,9 +64,16 @@ const AppRoutes = () => {
           </AdminProtectedRoute>
         }
       >
-        <Route path="products" element={<CreateProductForm />} />
         {/* Add additional nested routes for users, orders, colors, brands, reviews, statistics here */}
       </Route>
+      <Route
+        path="/admin/products"
+        element={
+          <AdminProtectedRoute>
+            <ProductsPage />
+          </AdminProtectedRoute>
+        }
+      />
       {/* Fallback route */}
       <Route path="*" element={<Navigate to="/" replace />} />
       {/* E-commerce routes */}
@@ -77,6 +85,7 @@ const AppRoutes = () => {
     </Routes>
   );
 };
+
 
 const App = () => {
   return (
