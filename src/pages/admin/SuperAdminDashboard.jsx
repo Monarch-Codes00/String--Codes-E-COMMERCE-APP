@@ -3,11 +3,49 @@ import { useEffect, useState } from "react";
 import { fetchUsersList, fetchProductsList } from "../../services/adminService";
 import { Outlet, Link } from "react-router-dom";
 import "../../components/styles/SuperAdminDashboard.css";
+import {
+  PieChart,
+  Pie,
+  Cell,
+  ResponsiveContainer,
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  Tooltip,
+  Legend,
+  CartesianGrid,
+} from "recharts";
+import { ShoppingCart, Users, Truck, DollarSign } from "lucide-react";
+
+const COLORS = ["#3bc9db", "#e9ecef"];
+
+const monthlyTarget = 1900000;
+const amountMade = 1200000; // Example amount made so far
+
+const targetData = [
+  { name: "Amount Made", value: amountMade, color: COLORS[0] },
+  { name: "Remaining", value: monthlyTarget - amountMade, color: COLORS[1] },
+];
+
+const revenueData = [
+  { name: "Week 1", revenue: 300000 },
+  { name: "Week 2", revenue: 450000 },
+  { name: "Week 3", revenue: 600000 },
+  { name: "Week 4", revenue: 550000 },
+  { name: "Week 5", revenue: 700000 },
+  { name: "Week 6", revenue: 650000 },
+  { name: "Week 7", revenue: 800000 },
+  { name: "Week 8", revenue: 750000 },
+];
 
 const SuperAdminDashboard = () => {
   const { user } = useAuth();
   const [userCount, setUserCount] = useState(0);
   const [productCount, setProductCount] = useState(0);
+  const [orderCount, setOrderCount] = useState(845); // Example static data
+  const [newCustomers, setNewCustomers] = useState(4565); // Example static data
+  const [totalDelivery, setTotalDelivery] = useState(72000); // Example static data
 
   useEffect(() => {
     // Fetch both users and products concurrently
@@ -70,23 +108,108 @@ const SuperAdminDashboard = () => {
           <p>You have admin privileges.</p>
         </header>
 
-        {/* Statistics Cards */}
-        <section className="stats-container">
-          <div className="stat-card">
-            <h3>Total Users</h3>
-            <p>{userCount}</p>
+        {/* Dashboard Charts */}
+        <section className="dashboard-charts" style={{ display: "flex", gap: "20px", flexWrap: "wrap" }}>
+          <div style={{ flex: "1 1 300px", minWidth: "300px", border: "1px solid #ccc", borderRadius: "8px", padding: "16px" }}>
+            <h3>Monthly Target</h3>
+            <ResponsiveContainer width="100%" height={250}>
+              <PieChart>
+                <Pie
+                  data={targetData}
+                  dataKey="value"
+                  nameKey="name"
+                  cx="50%"
+                  cy="50%"
+                  innerRadius={60}
+                  outerRadius={80}
+                  paddingAngle={5}
+                  label
+                >
+                  {targetData.map((entry, index) => (
+                    <Cell key={`cell-${index}`} fill={entry.color} />
+                  ))}
+                </Pie>
+              </PieChart>
+            </ResponsiveContainer>
+            <div className="flex justify-around mt-4 text-sm">
+              <div className="flex items-center space-x-2">
+                <div
+                  style={{ backgroundColor: COLORS[0] }}
+                  className="w-3 h-3 rounded-full"
+                ></div>
+                <span>Amount Made</span>
+                <span>${amountMade.toLocaleString()}</span>
+              </div>
+              <div className="flex items-center space-x-2">
+                <div
+                  style={{ backgroundColor: COLORS[1] }}
+                  className="w-3 h-3 rounded-full"
+                ></div>
+                <span>Remaining</span>
+                <span>${(monthlyTarget - amountMade).toLocaleString()}</span>
+              </div>
+            </div>
           </div>
-          <div className="stat-card">
-            <h3>Total Products</h3>
-            <p>{productCount}</p>
+
+          <div style={{ flex: "2 1 600px", minWidth: "300px", border: "1px solid #ccc", borderRadius: "8px", padding: "16px" }}>
+            <h3>Revenue Made</h3>
+            <ResponsiveContainer width="100%" height={250}>
+              <LineChart data={revenueData} margin={{ top: 5, right: 20, left: 10, bottom: 5 }}>
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey="name" />
+                <YAxis />
+                <Tooltip />
+                <Legend />
+                <Line type="monotone" dataKey="revenue" stroke="#3bc9db" strokeWidth={2} />
+              </LineChart>
+            </ResponsiveContainer>
           </div>
-          <div className="stat-card">
-            <h3>Total Orders</h3>
-            <p>845</p>
+        </section>
+
+        {/* Bottom Summary Cards */}
+        <section className="stats-container" style={{ display: "flex", gap: "24px", marginTop: "24px", flexWrap: "wrap", backgroundColor: "#fff", padding: "20px", borderRadius: "12px", boxShadow: "0 2px 8px rgba(0,0,0,0.1)" }}>
+          <div className="stat-card" style={{ flex: "1 1 220px", borderRadius: "12px", padding: "20px", backgroundColor: "#f9fafb", boxShadow: "0 1px 4px rgba(0,0,0,0.05)" }}>
+            <div style={{ display: "flex", alignItems: "center", gap: "16px" }}>
+              <DollarSign size={28} color="#3bc9db" />
+              <div>
+                <h3 style={{ fontWeight: "600", fontSize: "1.125rem", marginBottom: "4px" }}>Total Revenue</h3>
+                <p style={{ fontSize: "1.75rem", fontWeight: "700", margin: 0 }}>${amountMade.toLocaleString()}</p>
+                <p style={{ color: "#22c55e", fontWeight: "500", marginTop: "4px", fontSize: "0.875rem" }}>Revenue up (previous 30 days)</p>
+              </div>
+            </div>
           </div>
-          <div className="stat-card">
-            <h3>Total Revenue</h3>
-            <p>₦76,230</p>
+
+          <div className="stat-card" style={{ flex: "1 1 220px", borderRadius: "12px", padding: "20px", backgroundColor: "#f9fafb", boxShadow: "0 1px 4px rgba(0,0,0,0.05)" }}>
+            <div style={{ display: "flex", alignItems: "center", gap: "16px" }}>
+              <ShoppingCart size={28} color="#f97316" />
+              <div>
+                <h3 style={{ fontWeight: "600", fontSize: "1.125rem", marginBottom: "4px" }}>Total Orders</h3>
+                <p style={{ fontSize: "1.75rem", fontWeight: "700", margin: 0 }}>{orderCount.toLocaleString()}</p>
+                <p style={{ color: "#ef4444", fontWeight: "500", marginTop: "4px", fontSize: "0.875rem" }}>Order down (previous 30 days)</p>
+              </div>
+            </div>
+          </div>
+
+          <div className="stat-card" style={{ flex: "1 1 220px", borderRadius: "12px", padding: "20px", backgroundColor: "#f9fafb", boxShadow: "0 1px 4px rgba(0,0,0,0.05)" }}>
+            <div style={{ display: "flex", alignItems: "center", gap: "16px" }}>
+              <Users size={28} color="#22c55e" />
+              <div>
+                <h3 style={{ fontWeight: "600", fontSize: "1.125rem", marginBottom: "4px" }}>New Customers</h3>
+                <p style={{ fontSize: "1.75rem", fontWeight: "700", margin: 0 }}>{newCustomers.toLocaleString()}</p>
+                <p style={{ color: "#22c55e", fontWeight: "500", marginTop: "4px", fontSize: "0.875rem" }}>Customer up (previous 30 days)</p>
+              </div>
+            </div>
+          </div>
+
+          <div className="stat-card" style={{ flex: "1 1 220px", borderRadius: "12px", padding: "20px", backgroundColor: "#f9fafb", boxShadow: "0 1px 4px rgba(0,0,0,0.05)" }}>
+            <div style={{ display: "flex", alignItems: "center", gap: "16px" }}>
+              <Truck size={28} color="#facc15" />
+              <div>
+                <h3 style={{ fontWeight: "600", fontSize: "1.125rem", marginBottom: "4px" }}>Total Delivery</h3>
+                <p style={{ fontSize: "1.75rem", fontWeight: "700", margin: 0 }}>{totalDelivery.toLocaleString()}</p>
+                <p style={{ color: "#22c55e", fontWeight: "500", marginTop: "4px", fontSize: "0.875rem" }}>Delivery up (previous 30 days)</p>
+              </div>
+            </div>
           </div>
         </section>
 

@@ -2,6 +2,178 @@ import React, { useState, useEffect } from "react";
 import { useAuth } from "../contexts/AuthContext";
 import "../components/styles/Profile.css";
 
+const ShippingAddressForm = () => {
+  const [formData, setFormData] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    phone: "",
+    country: "United States",
+    state: "",
+    postalCode: "",
+    address: "",
+    city: "",
+  });
+
+  useEffect(() => {
+    const savedData = localStorage.getItem("shippingAddressForm");
+    if (savedData) {
+      setFormData(JSON.parse(savedData));
+    }
+  }, []);
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
+  const handleSave = () => {
+    localStorage.setItem("shippingAddressForm", JSON.stringify(formData));
+    alert("Shipping address saved.");
+  };
+
+  const handleCancel = () => {
+    const savedData = localStorage.getItem("shippingAddressForm");
+    if (savedData) {
+      setFormData(JSON.parse(savedData));
+    } else {
+      setFormData({
+        firstName: "",
+        lastName: "",
+        email: "",
+        phone: "",
+        country: "United States",
+        state: "",
+        postalCode: "",
+        address: "",
+        city: "",
+      });
+    }
+  };
+
+  return (
+    <div className="shipping-address-form">
+      <h3>Billing address</h3>
+      <div className="form-row">
+        <div className="form-group">
+          <label>First name</label>
+          <input
+            type="text"
+            name="firstName"
+            value={formData.firstName}
+            onChange={handleChange}
+            placeholder="First name"
+          />
+        </div>
+        <div className="form-group">
+          <label>Last name</label>
+          <input
+            type="text"
+            name="lastName"
+            value={formData.lastName}
+            onChange={handleChange}
+            placeholder="Last name"
+          />
+        </div>
+      </div>
+
+      <div className="form-row">
+        <div className="form-group">
+          <label>Email address</label>
+          <input
+            type="email"
+            name="email"
+            value={formData.email}
+            onChange={handleChange}
+            placeholder="Email address"
+          />
+        </div>
+        <div className="form-group">
+          <label>Phone number</label>
+          <input
+            type="tel"
+            name="phone"
+            value={formData.phone}
+            onChange={handleChange}
+            placeholder="Phone number"
+          />
+        </div>
+      </div>
+
+      <div className="form-row">
+        <div className="form-group">
+          <label>Country</label>
+          <select
+            name="country"
+            value={formData.country}
+            onChange={handleChange}
+          >
+            <option value="United States">United States</option>
+            <option value="Canada">Canada</option>
+            <option value="United Kingdom">United Kingdom</option>
+            {/* Add more countries as needed */}
+          </select>
+        </div>
+        <div className="form-group">
+          <label>State/Province</label>
+          <input
+            type="text"
+            name="state"
+            value={formData.state}
+            onChange={handleChange}
+            placeholder="State/Province"
+          />
+        </div>
+        <div className="form-group">
+          <label>Postal code</label>
+          <input
+            type="text"
+            name="postalCode"
+            value={formData.postalCode}
+            onChange={handleChange}
+            placeholder="Postal code"
+          />
+        </div>
+      </div>
+
+      <div className="form-row">
+        <div className="form-group">
+          <label>Address</label>
+          <input
+            type="text"
+            name="address"
+            value={formData.address}
+            onChange={handleChange}
+            placeholder="Address"
+          />
+        </div>
+        <div className="form-group">
+          <label>City</label>
+          <input
+            type="text"
+            name="city"
+            value={formData.city}
+            onChange={handleChange}
+            placeholder="City"
+          />
+        </div>
+      </div>
+
+      <div className="form-actions">
+        <button type="button" onClick={handleCancel} className="cancel-button">
+          Cancel
+        </button>
+        <button type="button" onClick={handleSave} className="continue-button">
+          Continue
+        </button>
+      </div>
+    </div>
+  );
+};
+
 const Profile = () => {
   const { user, logout, deleteAccount } = useAuth();
 
@@ -145,8 +317,7 @@ const Profile = () => {
           {activeSection === "Address Book" && (
             <section className="address-book-section">
               <h2>Address Book</h2>
-              <p>Manage your shipping addresses here.</p>
-              {/* Implement address management UI as needed */}
+              <ShippingAddressForm />
             </section>
           )}
 
@@ -156,9 +327,9 @@ const Profile = () => {
               {orders.length === 0 ? (
                 <p>No orders found.</p>
               ) : (
-                <ul className="order-list">
+                <div className="order-grid" style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: "20px" }}>
                   {orders.map((order, index) => (
-                    <li key={index} className="order-item">
+                    <div key={index} className="order-item" style={{ border: "1px solid #ccc", padding: "10px", borderRadius: "5px" }}>
                       <p>
                         <strong>Order ID:</strong> {order.id || "N/A"}
                       </p>
@@ -182,11 +353,7 @@ const Profile = () => {
                         {order.items && order.items.length > 0 ? (
                           order.items.map((item, idx) => (
                             <li key={idx} className="order-item-detail">
-                              <img
-                                src={item.image || "/placeholder.png"}
-                                alt={item.name}
-                                className="order-item-image"
-                              />
+                              {/* Image removed as per user request */}
                               <div className="order-item-info">
                                 <p>{item.name}</p>
                                 <p>Quantity: {item.quantity}</p>
@@ -198,9 +365,9 @@ const Profile = () => {
                           <p>No items found</p>
                         )}
                       </ul>
-                    </li>
+                    </div>
                   ))}
-                </ul>
+                </div>
               )}
             </section>
           )}
