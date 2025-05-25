@@ -44,11 +44,11 @@ const SuperAdminDashboard = () => {
   const [userCount, setUserCount] = useState(0);
   const [productCount, setProductCount] = useState(0);
   const [orderCount, setOrderCount] = useState(845); // Example static data
-  const [newCustomers, setNewCustomers] = useState(4565); // Example static data
-  const [totalDelivery, setTotalDelivery] = useState(72000); // Example static data
+  const [newCustomers, setNewCustomers] = useState(0); // Will be set dynamically from API
+  const [totalDelivery, setTotalDelivery] = useState(72000); // Static value, no API endpoint found
 
   useEffect(() => {
-    // Fetch both users and products concurrently
+    // Fetch users and products concurrently
     const fetchStats = async () => {
       try {
         const [users, products] = await Promise.all([
@@ -57,6 +57,9 @@ const SuperAdminDashboard = () => {
         ]);
         setUserCount(users.length);
         setProductCount(products.length);
+
+        // Set newCustomers dynamically from users count
+        setNewCustomers(users.length);
       } catch (error) {
         console.error("Error fetching statistics:", error);
       }
