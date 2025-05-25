@@ -33,8 +33,16 @@ const ProductList = () => {
     ? products.filter((product) => product.category === filteredCategory)
     : products;
 
+  const [displayCount, setDisplayCount] = React.useState(8);
+
   if (loading) return <p>Loading products...</p>;
   if (error) return <p>{error}</p>;
+
+  const displayedProducts = filteredProducts.slice(0, displayCount);
+
+  const handleSeeMore = () => {
+    setDisplayCount((prev) => prev + 8);
+  };
 
   return (
     <div className="product-list-page">
@@ -42,7 +50,7 @@ const ProductList = () => {
       <div className="product-list-container">
         <h2>{filteredCategory ? `Category: ${filteredCategory}` : "Products"}</h2>
         <div className="product-grid">
-          {filteredProducts.map((product) => (
+          {displayedProducts.map((product) => (
             <div key={product._id} className="product-card">
               <Link to={`/product/${product._id}`}>
                 <img
@@ -56,6 +64,11 @@ const ProductList = () => {
             </div>
           ))}
         </div>
+        {displayCount < filteredProducts.length && (
+          <button className="see-more-btn" onClick={handleSeeMore}>
+            See More
+          </button>
+        )}
       </div>
     </div>
   );

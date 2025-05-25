@@ -1,0 +1,151 @@
+.profile-container {
+  max-width: 1100px;
+  margin: 40px auto;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+  color: #333;
+  background-color: #f5f5e9;
+}
+
+.profile-title {
+  font-size: 36px;
+  font-weight: 900;
+  color: #6b6b4f;
+  margin-bottom: 30px;
+  text-shadow: 1px 1px 0 #d6d6c2;
+}
+
+.profile-content {
+  display: flex;
+  gap: 30px;
+}
+
+.profile-sidebar {
+  flex: 1;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+.profile-sidebar ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.profile-sidebar li {
+  padding: 15px 20px;
+  border-bottom: 1px solid #eee;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 16px;
+  color: #555;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.profile-sidebar li.active,
+.profile-sidebar li:hover {
+  background-color: #000;
+  color: #fff;
+}
+
+.logout-link {
+  color: #d9534f;
+  font-weight: 700;
+}
+
+.profile-main {
+  flex: 3;
+  background: #fff;
+  border-radius: 8px;
+  padding: 30px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+.profile-main section {
+  margin-bottom: 40px;
+}
+
+.profile-main h2 {
+  font-size: 22px;
+  font-weight: 700;
+  margin-bottom: 15px;
+  border-bottom: 2px solid #6b6b4f;
+  padding-bottom: 5px;
+}
+
+.info-display p {
+  margin: 8px 0;
+  font-size: 16px;
+}
+
+.edit-button {
+  margin-top: 10px;
+  background: none;
+  border: none;
+  color: #6b6b4f;
+  cursor: pointer;
+  font-weight: 700;
+  font-size: 14px;
+  text-decoration: underline;
+}
+
+.edit-form label {
+  display: block;
+  margin-bottom: 12px;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.edit-form input,
+.edit-form select {
+  width: 100%;
+  padding: 8px 10px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  box-sizing: border-box;
+}
+
+.edit-form button {
+  margin-top: 15px;
+  padding: 10px 20px;
+  background-color: #6b6b4f;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 700;
+}
+
+.account-management-section h3 {
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.account-management-section p {
+  font-size: 14px;
+  margin-bottom: 15px;
+  color: #555;
+}
+
+.logout-button,
+.delete-account-button {
+  padding: 10px 20px;
+  border: 2px solid #6b6b4f;
+  background: none;
+  color: #6b6b4f;
+  font-weight: 700;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-bottom: 15px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.logout-button:hover,
+.delete-account-button:hover {
+  background-color: #6b6b4f;
+  color: white;
+}

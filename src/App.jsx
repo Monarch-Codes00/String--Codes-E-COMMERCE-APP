@@ -5,6 +5,7 @@ import {
   Navigate,
 } from "react-router-dom";
 import { AuthProvider, useAuth } from "./contexts/AuthContext";
+import { CartProvider } from "./contexts/CartContext";
 import ProtectedRoute from "./routes/ProtectedRoute";
 import Navbar from "./components/Navbar";
 
@@ -80,11 +81,13 @@ const AppRoutes = () => {
 const App = () => {
   return (
     <AuthProvider>
-      <Router>
-        <Navbar />
-        <Toaster position="top-right" />
-        <AppRoutes />
-      </Router>
+      <CartProvider>
+        <Router>
+          <Navbar />
+          <Toaster position="top-right" />
+          <AppRoutes />
+        </Router>
+      </CartProvider>
     </AuthProvider>
   );
 };

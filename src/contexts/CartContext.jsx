@@ -61,7 +61,7 @@ const cartReducer = (state, action) => {
 export const CartProvider = ({ children }) => {
   const [state, dispatch] = useReducer(cartReducer, initialState);
 
-  // Persist cart in localStorage
+  // Load cart from localStorage on mount
   useEffect(() => {
     const storedCart = localStorage.getItem("cartItems");
     if (storedCart) {
@@ -69,6 +69,7 @@ export const CartProvider = ({ children }) => {
     }
   }, []);
 
+  // Save cart to localStorage on updates
   useEffect(() => {
     localStorage.setItem("cartItems", JSON.stringify(state.cartItems));
   }, [state.cartItems]);

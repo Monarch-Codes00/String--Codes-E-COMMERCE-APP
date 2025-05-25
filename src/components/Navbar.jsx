@@ -1,11 +1,13 @@
 import { useAuth } from "../contexts/AuthContext";
 import { useNavigate, useLocation } from "react-router-dom";
+import { useCart } from "../contexts/CartContext";
 import "./styles/Navbar.css"; // Import the vanilla CSS file
 
 const Navbar = () => {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
+  const { cartItems } = useCart();
 
   // Handle clicking on the brand link.
   const handleBrandClick = (e) => {
@@ -35,6 +37,12 @@ const Navbar = () => {
     navigate("/login");
   };
 
+  const handleCartClick = () => {
+    navigate("/cart");
+  };
+
+  const totalItems = cartItems.reduce((acc, item) => acc + item.quantity, 0);
+
   return (
     <nav className="navbar">
       <div className="navbar-brand">
@@ -57,6 +65,31 @@ const Navbar = () => {
           </button>
           <button onClick={handleLogout} className="navbar-button logout">
             Logout
+          </button>
+          <button
+            onClick={handleCartClick}
+            className="navbar-button cart-button"
+            aria-label="Cart"
+            style={{ position: "relative" }}
+          >
+            🛒
+            {totalItems > 0 && (
+              <span
+                style={{
+                  position: "absolute",
+                  top: "-5px",
+                  right: "-10px",
+                  background: "red",
+                  color: "white",
+                  borderRadius: "50%",
+                  padding: "2px 6px",
+                  fontSize: "12px",
+                  fontWeight: "bold",
+                }}
+              >
+                {totalItems}
+              </span>
+            )}
           </button>
         </div>
       )}
