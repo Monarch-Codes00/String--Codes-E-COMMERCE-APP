@@ -86,9 +86,9 @@ const SuperAdminDashboard = () => {
   }, []);
 
   return (
-    <div className="admin-dashboard">
+    <div className="admin-dashboard" style={{ minHeight: "100vh" }}>
       {/* Sidebar */}
-      <aside className="admin-sidebar">
+      <aside className="admin-sidebar" style={{ minHeight: "100vh" }}>
         <div className="sidebar-header">
           <h2>Admin Panel</h2>
         </div>
@@ -130,8 +130,19 @@ const SuperAdminDashboard = () => {
         </header>
 
         {/* Dashboard Charts */}
-        <section className="dashboard-charts" style={{ display: "flex", gap: "20px", flexWrap: "wrap" }}>
-          <div style={{ flex: "1 1 300px", minWidth: "300px", border: "1px solid #ccc", borderRadius: "8px", padding: "16px" }}>
+        <section
+          className="dashboard-charts"
+          style={{ display: "flex", gap: "20px", flexWrap: "wrap" }}
+        >
+          <div
+            style={{
+              flex: "1 1 300px",
+              minWidth: "300px",
+              border: "1px solid #ccc",
+              borderRadius: "8px",
+              padding: "16px",
+            }}
+          >
             <h3>Monthly Target</h3>
             <ResponsiveContainer width="100%" height={250}>
               <PieChart>
@@ -172,63 +183,211 @@ const SuperAdminDashboard = () => {
             </div>
           </div>
 
-          <div style={{ flex: "2 1 600px", minWidth: "300px", border: "1px solid #ccc", borderRadius: "8px", padding: "16px" }}>
+          <div
+            style={{
+              flex: "2 1 600px",
+              minWidth: "300px",
+              border: "1px solid #ccc",
+              borderRadius: "8px",
+              padding: "16px",
+            }}
+          >
             <h3>Revenue Made</h3>
             <ResponsiveContainer width="100%" height={250}>
-              <LineChart data={revenueData} margin={{ top: 5, right: 20, left: 10, bottom: 5 }}>
+              <LineChart
+                data={revenueData}
+                margin={{ top: 5, right: 20, left: 10, bottom: 5 }}
+              >
                 <CartesianGrid strokeDasharray="3 3" />
                 <XAxis dataKey="name" />
                 <YAxis />
                 <Tooltip />
                 <Legend />
-                <Line type="monotone" dataKey="revenue" stroke="#3bc9db" strokeWidth={2} />
+                <Line
+                  type="monotone"
+                  dataKey="revenue"
+                  stroke="#3bc9db"
+                  strokeWidth={2}
+                />
               </LineChart>
             </ResponsiveContainer>
           </div>
         </section>
 
         {/* Bottom Summary Cards */}
-        <section className="stats-container" style={{ display: "flex", gap: "24px", marginTop: "24px", flexWrap: "wrap", backgroundColor: "#fff", padding: "20px", borderRadius: "12px", boxShadow: "0 2px 8px rgba(0,0,0,0.1)" }}>
-          <div className="stat-card" style={{ flex: "1 1 220px", borderRadius: "12px", padding: "20px", backgroundColor: "#f9fafb", boxShadow: "0 1px 4px rgba(0,0,0,0.05)" }}>
+        <section
+          className="stats-container"
+          style={{
+            display: "flex",
+            gap: "24px",
+            marginTop: "24px",
+            flexWrap: "wrap",
+            backgroundColor: "#fff",
+            padding: "20px",
+            borderRadius: "12px",
+            boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
+          }}
+        >
+          <div
+            className="stat-card"
+            style={{
+              flex: "1 1 220px",
+              borderRadius: "12px",
+              padding: "20px",
+              backgroundColor: "#f9fafb",
+              boxShadow: "0 1px 4px rgba(0,0,0,0.05)",
+            }}
+          >
             <div style={{ display: "flex", alignItems: "center", gap: "16px" }}>
               <DollarSign size={28} color="#3bc9db" />
               <div>
-                <h3 style={{ fontWeight: "600", fontSize: "1.125rem", marginBottom: "4px" }}>Total Revenue</h3>
-                <p style={{ fontSize: "1.75rem", fontWeight: "700", margin: 0 }}>${amountMade.toLocaleString()}</p>
-                <p style={{ color: "#22c55e", fontWeight: "500", marginTop: "4px", fontSize: "0.875rem" }}>Revenue up (previous 30 days)</p>
+                <h3
+                  style={{ fontWeight: "600", fontSize: "1.125rem", marginBottom: "4px" }}
+                >
+                  Total Revenue
+                </h3>
+                <p
+                  style={{
+                    fontSize: "1.75rem",
+                    fontWeight: "700",
+                    margin: 0,
+                  }}
+                >
+                  ${amountMade.toLocaleString()}
+                </p>
+                <p
+                  style={{
+                    color: "#22c55e",
+                    fontWeight: "500",
+                    marginTop: "4px",
+                    fontSize: "0.875rem",
+                  }}
+                >
+                  Revenue up (previous 30 days)
+                </p>
               </div>
             </div>
           </div>
 
-          <div className="stat-card" style={{ flex: "1 1 220px", borderRadius: "12px", padding: "20px", backgroundColor: "#f9fafb", boxShadow: "0 1px 4px rgba(0,0,0,0.05)" }}>
+          <div
+            className="stat-card"
+            style={{
+              flex: "1 1 220px",
+              borderRadius: "12px",
+              padding: "20px",
+              backgroundColor: "#f9fafb",
+              boxShadow: "0 1px 4px rgba(0,0,0,0.05)",
+            }}
+          >
             <div style={{ display: "flex", alignItems: "center", gap: "16px" }}>
               <ShoppingCart size={28} color="#f97316" />
               <div>
-                <h3 style={{ fontWeight: "600", fontSize: "1.125rem", marginBottom: "4px" }}>Total Orders</h3>
-                <p style={{ fontSize: "1.75rem", fontWeight: "700", margin: 0 }}>{orderCount.toLocaleString()}</p>
-                <p style={{ color: "#ef4444", fontWeight: "500", marginTop: "4px", fontSize: "0.875rem" }}>Order down (previous 30 days)</p>
+                <h3
+                  style={{ fontWeight: "600", fontSize: "1.125rem", marginBottom: "4px" }}
+                >
+                  Total Orders
+                </h3>
+                <p
+                  style={{
+                    fontSize: "1.75rem",
+                    fontWeight: "700",
+                    margin: 0,
+                  }}
+                >
+                  {orderCount.toLocaleString()}
+                </p>
+                <p
+                  style={{
+                    color: "#ef4444",
+                    fontWeight: "500",
+                    marginTop: "4px",
+                    fontSize: "0.875rem",
+                  }}
+                >
+                  Order down (previous 30 days)
+                </p>
               </div>
             </div>
           </div>
 
-          <div className="stat-card" style={{ flex: "1 1 220px", borderRadius: "12px", padding: "20px", backgroundColor: "#f9fafb", boxShadow: "0 1px 4px rgba(0,0,0,0.05)" }}>
+          <div
+            className="stat-card"
+            style={{
+              flex: "1 1 220px",
+              borderRadius: "12px",
+              padding: "20px",
+              backgroundColor: "#f9fafb",
+              boxShadow: "0 1px 4px rgba(0,0,0,0.05)",
+            }}
+          >
             <div style={{ display: "flex", alignItems: "center", gap: "16px" }}>
               <Users size={28} color="#22c55e" />
               <div>
-                <h3 style={{ fontWeight: "600", fontSize: "1.125rem", marginBottom: "4px" }}>New Customers</h3>
-                <p style={{ fontSize: "1.75rem", fontWeight: "700", margin: 0 }}>{newCustomers.toLocaleString()}</p>
-                <p style={{ color: "#22c55e", fontWeight: "500", marginTop: "4px", fontSize: "0.875rem" }}>Customer up (previous 30 days)</p>
+                <h3
+                  style={{ fontWeight: "600", fontSize: "1.125rem", marginBottom: "4px" }}
+                >
+                  New Customers
+                </h3>
+                <p
+                  style={{
+                    fontSize: "1.75rem",
+                    fontWeight: "700",
+                    margin: 0,
+                  }}
+                >
+                  {newCustomers.toLocaleString()}
+                </p>
+                <p
+                  style={{
+                    color: "#22c55e",
+                    fontWeight: "500",
+                    marginTop: "4px",
+                    fontSize: "0.875rem",
+                  }}
+                >
+                  Customer up (previous 30 days)
+                </p>
               </div>
             </div>
           </div>
 
-          <div className="stat-card" style={{ flex: "1 1 220px", borderRadius: "12px", padding: "20px", backgroundColor: "#f9fafb", boxShadow: "0 1px 4px rgba(0,0,0,0.05)" }}>
+          <div
+            className="stat-card"
+            style={{
+              flex: "1 1 220px",
+              borderRadius: "12px",
+              padding: "20px",
+              backgroundColor: "#f9fafb",
+              boxShadow: "0 1px 4px rgba(0,0,0,0.05)",
+            }}
+          >
             <div style={{ display: "flex", alignItems: "center", gap: "16px" }}>
               <Truck size={28} color="#facc15" />
               <div>
-                <h3 style={{ fontWeight: "600", fontSize: "1.125rem", marginBottom: "4px" }}>Total Delivery</h3>
-                <p style={{ fontSize: "1.75rem", fontWeight: "700", margin: 0 }}>{totalDelivery.toLocaleString()}</p>
-                <p style={{ color: "#22c55e", fontWeight: "500", marginTop: "4px", fontSize: "0.875rem" }}>Delivery up (previous 30 days)</p>
+                <h3
+                  style={{ fontWeight: "600", fontSize: "1.125rem", marginBottom: "4px" }}
+                >
+                  Total Delivery
+                </h3>
+                <p
+                  style={{
+                    fontSize: "1.75rem",
+                    fontWeight: "700",
+                    margin: 0,
+                  }}
+                >
+                  {totalDelivery.toLocaleString()}
+                </p>
+                <p
+                  style={{
+                    color: "#22c55e",
+                    fontWeight: "500",
+                    marginTop: "4px",
+                    fontSize: "0.875rem",
+                  }}
+                >
+                  Delivery up (previous 30 days)
+                </p>
               </div>
             </div>
           </div>

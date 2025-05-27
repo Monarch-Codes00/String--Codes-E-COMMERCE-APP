@@ -1,52 +1,41 @@
-import React, { useState, useEffect } from "react";
-import { fetchCategories } from "../services/adminService";
-import "./styles/Sidebar.css";
+import { Link } from "react-router-dom";
+import { ShoppingCart, Users, Truck, DollarSign, Tag, Palette, Star, LayoutGrid } from "lucide-react";
 
-const Sidebar = ({ onSelectCategory }) => {
-  const [categories, setCategories] = useState([]);
-  const [collapsed, setCollapsed] = useState(true);
-  const [error, setError] = useState(null);
-
-  useEffect(() => {
-    const getCategories = async () => {
-      try {
-        const cats = await fetchCategories();
-        setCategories(cats);
-      } catch (err) {
-        setError("Failed to load categories");
-      }
-    };
-    getCategories();
-  }, []);
-
-  const toggleSidebar = () => {
-    setCollapsed(!collapsed);
-  };
-
+const Sidebar = () => {
   return (
-    <div className={`sidebar ${collapsed ? "collapsed" : "expanded"}`}>
-      <button className="menu-icon" onClick={toggleSidebar} aria-label="Toggle categories menu">
-        &#9776;
-      </button>
-      {!collapsed && (
-        <ul className="category-list">
-          {error && <li className="error">{error}</li>}
-          {categories.map((category) => (
-            <li
-              key={category._id}
-              className="category-item"
-              onClick={() => onSelectCategory(category.name)}
-              tabIndex={0}
-              onKeyDown={(e) => {
-                if (e.key === "Enter") onSelectCategory(category.name);
-              }}
-            >
-              {category.name}
-            </li>
-          ))}
+    <aside className="admin-sidebar" style={{ height: "100vh", overflowY: "auto" }}>
+      <div className="sidebar-header">
+        <h2>Admin Panel</h2>
+      </div>
+      <nav className="sidebar-nav">
+        <ul>
+          <li>
+            <Link to="/superadmin-dashboard">Dashboard</Link>
+          </li>
+          <li>
+            <Link to="/admin/products">Products</Link>
+          </li>
+          <li>
+            <Link to="/admin/users">Users</Link>
+          </li>
+          <li>
+            <Link to="/superadmin-dashboard/orders">Orders</Link>
+          </li>
+          <li>
+            <Link to="/superadmin-dashboard/colors">Colors</Link>
+          </li>
+          <li>
+            <Link to="/superadmin-dashboard/brands">Brands</Link>
+          </li>
+          <li>
+            <Link to="/superadmin-dashboard/reviews">Reviews</Link>
+          </li>
+          <li>
+            <Link to="/superadmin-dashboard/statistics">Statistics</Link>
+          </li>
         </ul>
-      )}
-    </div>
+      </nav>
+    </aside>
   );
 };
 
