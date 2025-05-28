@@ -49,3 +49,10 @@ export const updateShippingAddress = async (addressData) => {
 
 export const deleteUser = async (userId) => {
   try {
+    const response = await apiClient.delete(`/users/${userId}`);
+    const { message } = response.data;
+    return message;
+  } catch (error) {
+    throw error.response?.data?.message || "Failed to delete user";
+  }
+};
