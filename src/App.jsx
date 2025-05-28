@@ -20,6 +20,7 @@ import { Toaster } from "react-hot-toast";
 import CreateProductForm from "./pages/admin/CreateProductForm";
 import AdminProtectedRoute from "./routes/AdminProtectedRoute";
 import ProductsPage from "./pages/admin/ProductsPage";
+import UsersPage from "./pages/admin/UsersPage";
 
 import ProductList from "./pages/ProductList";
 import ProductDetail from "./pages/ProductDetail";
@@ -74,6 +75,14 @@ const AppRoutes = () => {
           </AdminProtectedRoute>
         }
       />
+      <Route
+        path="/admin/users"
+        element={
+          <AdminProtectedRoute>
+            <UsersPage />
+          </AdminProtectedRoute>
+        }
+      />
       {/* Fallback route */}
       <Route path="*" element={<Navigate to="/" replace />} />
       {/* E-commerce routes */}
@@ -85,7 +94,6 @@ const AppRoutes = () => {
     </Routes>
   );
 };
-
 
 const App = () => {
   return (
@@ -102,4 +110,3 @@ const App = () => {
 };
 
 export default App;
-

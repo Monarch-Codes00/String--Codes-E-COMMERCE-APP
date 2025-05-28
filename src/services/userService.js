@@ -46,3 +46,6 @@ export const updateShippingAddress = async (addressData) => {
     throw error.response?.data?.message || "Failed to update shipping address";
   }
 };
+
+export const deleteUser = async (userId) => {
+  try {
