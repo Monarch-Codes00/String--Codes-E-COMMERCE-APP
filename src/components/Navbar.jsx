@@ -56,16 +56,27 @@ const Navbar = () => {
       </div>
       {user && (
         <div className="navbar-menu">
-          <span className="navbar-welcome">Welcome, {user.fullName}</span>
+          {/* Removed welcome message */}
           <button
             onClick={() => navigate("/profile")}
             className="navbar-button"
+            style={{
+              borderRadius: "50%",
+              width: "40px",
+              height: "40px",
+              padding: 0,
+              fontSize: "1.25rem",
+              fontWeight: "bold",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              textTransform: "uppercase",
+            }}
+            aria-label="Profile"
           >
-            Profile
+            {user.fullName ? user.fullName.charAt(0) : "U"}
           </button>
-          <button onClick={handleLogout} className="navbar-button logout">
-            Logout
-          </button>
+          {/* Removed Logout button */}
           <button
             onClick={handleCartClick}
             className="navbar-button cart-button"

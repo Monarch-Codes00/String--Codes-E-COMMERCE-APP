@@ -19,16 +19,16 @@ const Sidebar = () => {
             <Link to="/admin/users">Users</Link>
           </li>
           <li>
-            <Link to="/superadmin-dashboard/orders">Orders</Link>
+            <Link to="/admin/orders">Orders</Link>
           </li>
           <li>
-            <Link to="/superadmin-dashboard/colors">Colors</Link>
+            <Link to="/admin/colors">Colors</Link>
           </li>
           <li>
             <Link to="/superadmin-dashboard/brands">Brands</Link>
           </li>
           <li>
-            <Link to="/superadmin-dashboard/reviews">Reviews</Link>
+            <Link to="/admin/reviews">Reviews</Link>
           </li>
           <li>
             <Link to="/superadmin-dashboard/statistics">Statistics</Link>

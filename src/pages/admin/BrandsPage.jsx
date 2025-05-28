@@ -1,28 +1,34 @@
 import { useState, useEffect } from "react";
 import Sidebar from "../../components/Sidebar";
 import { Eye, Edit, Trash2 } from "lucide-react";
+import { fetchBrands } from "../../services/adminService";
 
 const PAGE_SIZE = 5;
 
-const OrdersPage = () => {
-  const [orders, setOrders] = useState([]);
+const BrandsPage = () => {
+  const [brands, setBrands] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
-    const storedOrders = localStorage.getItem("userOrders");
-    if (storedOrders) {
-      setOrders(JSON.parse(storedOrders));
-    }
+    const fetchBrands = async () => {
+      try {
+        const data = await fetchBrands();
+        setBrands(data);
+      } catch (error) {
+        console.error("Error fetching brands:", error);
+      }
+    };
+    fetchBrands();
   }, []);
 
-  const filteredOrders = orders.filter((order) =>
-    order.customerName && order.customerName.toLowerCase().includes(searchTerm.toLowerCase())
+  const filteredBrands = brands.filter((brand) =>
+    brand.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
-  const totalPages = Math.ceil(filteredOrders.length / PAGE_SIZE);
+  const totalPages = Math.ceil(filteredBrands.length / PAGE_SIZE);
 
-  const paginatedOrders = filteredOrders.slice(
+  const paginatedBrands = filteredBrands.slice(
     (currentPage - 1) * PAGE_SIZE,
     currentPage * PAGE_SIZE
   );
@@ -36,11 +42,11 @@ const OrdersPage = () => {
   return (
     <div className="admin-layout" style={{ display: "flex" }}>
       <Sidebar />
-      <div className="orders-page" style={{ padding: "20px", flex: 1 }}>
-        <h2>Orders</h2>
+      <div className="brands-page" style={{ padding: "20px", flex: 1 }}>
+        <h2>Brands</h2>
         <input
           type="text"
-          placeholder="Search orders..."
+          placeholder="Search brands..."
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
           style={{
@@ -55,20 +61,14 @@ const OrdersPage = () => {
         <table style={{ width: "100%", borderCollapse: "collapse" }}>
           <thead>
             <tr style={{ borderBottom: "1px solid #ddd" }}>
-              <th style={{ textAlign: "left", padding: "8px" }}>Order ID</th>
-              <th style={{ textAlign: "left", padding: "8px" }}>Customer</th>
-              <th style={{ textAlign: "left", padding: "8px" }}>Total</th>
-              <th style={{ textAlign: "left", padding: "8px" }}>Status</th>
+              <th style={{ textAlign: "left", padding: "8px" }}>Name</th>
               <th style={{ textAlign: "left", padding: "8px" }}>Action</th>
             </tr>
           </thead>
           <tbody>
-            {paginatedOrders.map((order) => (
-              <tr key={order.id} style={{ borderBottom: "1px solid #eee" }}>
-                <td style={{ padding: "8px" }}>{order.id}</td>
-                <td style={{ padding: "8px" }}>{order.customerName}</td>
-                <td style={{ padding: "8px" }}>${order.total.toFixed(2)}</td>
-                <td style={{ padding: "8px" }}>{order.status}</td>
+            {paginatedBrands.map((brand) => (
+              <tr key={brand._id} style={{ borderBottom: "1px solid #eee" }}>
+                <td style={{ padding: "8px" }}>{brand.name}</td>
                 <td style={{ padding: "8px", display: "flex", gap: "10px" }}>
                   <button title="View" style={{ background: "none", border: "none", cursor: "pointer" }}>
                     <Eye size={18} color="#3bc9db" />
@@ -114,4 +114,4 @@ const OrdersPage = () => {
   );
 };
 
-export default OrdersPage;
+export default BrandsPage;

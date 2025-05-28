@@ -4,25 +4,35 @@ import { Eye, Edit, Trash2 } from "lucide-react";
 
 const PAGE_SIZE = 5;
 
-const OrdersPage = () => {
-  const [orders, setOrders] = useState([]);
+const ReviewsPage = () => {
+  const [reviews, setReviews] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
 
+  // Placeholder static data for reviews
   useEffect(() => {
-    const storedOrders = localStorage.getItem("userOrders");
-    if (storedOrders) {
-      setOrders(JSON.parse(storedOrders));
-    }
+    const fetchReviews = async () => {
+      // Replace with API call if available
+      const data = [
+        { id: "1", user: "Alice", rating: 5, comment: "Great product!" },
+        { id: "2", user: "Bob", rating: 4, comment: "Good value." },
+        { id: "3", user: "Charlie", rating: 3, comment: "Average quality." },
+        { id: "4", user: "Diana", rating: 5, comment: "Highly recommend!" },
+        { id: "5", user: "Eve", rating: 2, comment: "Not satisfied." },
+        { id: "6", user: "Frank", rating: 4, comment: "Works well." },
+      ];
+      setReviews(data);
+    };
+    fetchReviews();
   }, []);
 
-  const filteredOrders = orders.filter((order) =>
-    order.customerName && order.customerName.toLowerCase().includes(searchTerm.toLowerCase())
+  const filteredReviews = reviews.filter((review) =>
+    review.user.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
-  const totalPages = Math.ceil(filteredOrders.length / PAGE_SIZE);
+  const totalPages = Math.ceil(filteredReviews.length / PAGE_SIZE);
 
-  const paginatedOrders = filteredOrders.slice(
+  const paginatedReviews = filteredReviews.slice(
     (currentPage - 1) * PAGE_SIZE,
     currentPage * PAGE_SIZE
   );
@@ -36,11 +46,11 @@ const OrdersPage = () => {
   return (
     <div className="admin-layout" style={{ display: "flex" }}>
       <Sidebar />
-      <div className="orders-page" style={{ padding: "20px", flex: 1 }}>
-        <h2>Orders</h2>
+      <div className="reviews-page" style={{ padding: "20px", flex: 1 }}>
+        <h2>Reviews</h2>
         <input
           type="text"
-          placeholder="Search orders..."
+          placeholder="Search reviews..."
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
           style={{
@@ -55,20 +65,18 @@ const OrdersPage = () => {
         <table style={{ width: "100%", borderCollapse: "collapse" }}>
           <thead>
             <tr style={{ borderBottom: "1px solid #ddd" }}>
-              <th style={{ textAlign: "left", padding: "8px" }}>Order ID</th>
-              <th style={{ textAlign: "left", padding: "8px" }}>Customer</th>
-              <th style={{ textAlign: "left", padding: "8px" }}>Total</th>
-              <th style={{ textAlign: "left", padding: "8px" }}>Status</th>
+              <th style={{ textAlign: "left", padding: "8px" }}>User</th>
+              <th style={{ textAlign: "left", padding: "8px" }}>Rating</th>
+              <th style={{ textAlign: "left", padding: "8px" }}>Comment</th>
               <th style={{ textAlign: "left", padding: "8px" }}>Action</th>
             </tr>
           </thead>
           <tbody>
-            {paginatedOrders.map((order) => (
-              <tr key={order.id} style={{ borderBottom: "1px solid #eee" }}>
-                <td style={{ padding: "8px" }}>{order.id}</td>
-                <td style={{ padding: "8px" }}>{order.customerName}</td>
-                <td style={{ padding: "8px" }}>${order.total.toFixed(2)}</td>
-                <td style={{ padding: "8px" }}>{order.status}</td>
+            {paginatedReviews.map((review) => (
+              <tr key={review.id} style={{ borderBottom: "1px solid #eee" }}>
+                <td style={{ padding: "8px" }}>{review.user}</td>
+                <td style={{ padding: "8px" }}>{review.rating}</td>
+                <td style={{ padding: "8px" }}>{review.comment}</td>
                 <td style={{ padding: "8px", display: "flex", gap: "10px" }}>
                   <button title="View" style={{ background: "none", border: "none", cursor: "pointer" }}>
                     <Eye size={18} color="#3bc9db" />
@@ -114,4 +122,4 @@ const OrdersPage = () => {
   );
 };
 
-export default OrdersPage;
+export default ReviewsPage;

@@ -21,6 +21,10 @@ import CreateProductForm from "./pages/admin/CreateProductForm";
 import AdminProtectedRoute from "./routes/AdminProtectedRoute";
 import ProductsPage from "./pages/admin/ProductsPage";
 import UsersPage from "./pages/admin/UsersPage";
+import OrdersPage from "./pages/admin/OrdersPage";
+import ColorsPage from "./pages/admin/ColorsPage";
+import ReviewsPage from "./pages/admin/ReviewsPage";
+import BrandsPage from "./pages/admin/BrandsPage";
 
 import ProductList from "./pages/ProductList";
 import ProductDetail from "./pages/ProductDetail";
@@ -80,6 +84,38 @@ const AppRoutes = () => {
         element={
           <AdminProtectedRoute>
             <UsersPage />
+          </AdminProtectedRoute>
+        }
+      />
+      <Route
+        path="/admin/orders"
+        element={
+          <AdminProtectedRoute>
+            <OrdersPage />
+          </AdminProtectedRoute>
+        }
+      />
+      <Route
+        path="/admin/colors"
+        element={
+          <AdminProtectedRoute>
+            <ColorsPage />
+          </AdminProtectedRoute>
+        }
+      />
+      <Route
+        path="/admin/reviews"
+        element={
+          <AdminProtectedRoute>
+            <ReviewsPage />
+          </AdminProtectedRoute>
+        }
+      />
+      <Route
+        path="/admin/brands"
+        element={
+          <AdminProtectedRoute>
+            <BrandsPage />
           </AdminProtectedRoute>
         }
       />
