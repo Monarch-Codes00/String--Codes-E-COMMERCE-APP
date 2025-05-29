@@ -64,3 +64,13 @@ export const fetchProductsList = async () => {
     throw error.response?.data?.message || "Failed to fetch products list";
   }
 };
+
+// Delete a user by ID
+export const deleteUser = async (userId) => {
+  try {
+    const response = await apiClient.delete(`/users/${userId}`);
+    return response.data;
+  } catch (error) {
+    throw error.response?.data?.message || "Failed to delete user";
+  }
+};

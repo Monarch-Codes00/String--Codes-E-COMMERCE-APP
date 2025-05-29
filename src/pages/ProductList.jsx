@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import apiClient from "../services/apiClient";
-import Sidebar from "../components/Sidebar";
 import "../components/styles/ProductList.css";
 
 const ProductList = () => {
@@ -46,7 +45,6 @@ const ProductList = () => {
 
   return (
     <div className="product-list-page">
-      <Sidebar onSelectCategory={handleSelectCategory} />
       <div className="product-list-container">
         <h2>{filteredCategory ? `Category: ${filteredCategory}` : "Products"}</h2>
         <div className="product-grid">

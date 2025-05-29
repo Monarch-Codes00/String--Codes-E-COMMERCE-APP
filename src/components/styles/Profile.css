@@ -3,16 +3,16 @@
   margin: 40px auto;
   padding: 20px;
   font-family: Arial, sans-serif;
-  color: #333;
-  background-color: #f5f5e9;
+  color: #34495e; /* admin dashboard font color */
+  background-color: #f4f6f8; /* admin dashboard background color */
 }
 
 .profile-title {
   font-size: 36px;
   font-weight: 900;
-  color: #6b6b4f;
+  color: #34495e; /* admin dashboard font color */
   margin-bottom: 30px;
-  text-shadow: 1px 1px 0 #d6d6c2;
+  /* removed text-shadow for cleaner admin style */
 }
 
 .profile-content {
@@ -22,9 +22,10 @@
 
 .profile-sidebar {
   flex: 1;
-  background: #fff;
+  background: #2c3e50; /* admin dashboard sidebar background */
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  color: #ecf0f1; /* admin dashboard sidebar font color */
 }
 
 .profile-sidebar ul {
@@ -35,11 +36,11 @@
 
 .profile-sidebar li {
   padding: 15px 20px;
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid #34495e; /* admin dashboard sidebar border */
   cursor: pointer;
   font-weight: 600;
   font-size: 16px;
-  color: #555;
+  color: #ecf0f1; /* admin dashboard sidebar font color */
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -47,12 +48,12 @@
 
 .profile-sidebar li.active,
 .profile-sidebar li:hover {
-  background-color: #000;
-  color: #fff;
+  background-color: #34495e; /* admin dashboard sidebar hover */
+  color: #bdc3c7; /* admin dashboard sidebar hover font */
 }
 
 .logout-link {
-  color: #d9534f;
+  color: #e74c3c; /* admin dashboard logout red */
   font-weight: 700;
 }
 
@@ -62,6 +63,7 @@
   border-radius: 8px;
   padding: 30px;
   box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  color: #34495e; /* admin dashboard font color */
 }
 
 .profile-main section {
@@ -72,20 +74,21 @@
   font-size: 22px;
   font-weight: 700;
   margin-bottom: 15px;
-  border-bottom: 2px solid #6b6b4f;
+  border-bottom: 2px solid #34495e; /* admin dashboard border color */
   padding-bottom: 5px;
 }
 
 .info-display p {
   margin: 8px 0;
   font-size: 16px;
+  color: #34495e; /* admin dashboard font color */
 }
 
 .edit-button {
   margin-top: 10px;
   background: none;
   border: none;
-  color: #6b6b4f;
+  color: #34495e; /* admin dashboard font color */
   cursor: pointer;
   font-weight: 700;
   font-size: 14px;
@@ -97,6 +100,7 @@
   margin-bottom: 12px;
   font-weight: 600;
   font-size: 14px;
+  color: #34495e; /* admin dashboard font color */
 }
 
 .edit-form input,
@@ -112,7 +116,7 @@
 .edit-form button {
   margin-top: 15px;
   padding: 10px 20px;
-  background-color: #6b6b4f;
+  background-color: #34495e; /* admin dashboard button color */
   color: white;
   border: none;
   border-radius: 6px;
@@ -123,20 +127,21 @@
 .account-management-section h3 {
   font-weight: 700;
   margin-bottom: 10px;
+  color: #34495e; /* admin dashboard font color */
 }
 
 .account-management-section p {
   font-size: 14px;
   margin-bottom: 15px;
-  color: #555;
+  color: #34495e; /* admin dashboard font color */
 }
 
 .logout-button,
 .delete-account-button {
   padding: 10px 20px;
-  border: 2px solid #6b6b4f;
+  border: 2px solid #34495e; /* admin dashboard button border */
   background: none;
-  color: #6b6b4f;
+  color: #34495e; /* admin dashboard button color */
   font-weight: 700;
   border-radius: 6px;
   cursor: pointer;
@@ -146,6 +151,6 @@
 
 .logout-button:hover,
 .delete-account-button:hover {
-  background-color: #6b6b4f;
+  background-color: #34495e; /* admin dashboard button hover */
   color: white;
 }

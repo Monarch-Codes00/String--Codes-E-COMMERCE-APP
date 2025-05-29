@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import Sidebar from "../../components/Sidebar";
+import AdminPageLayout from "../../components/AdminPageLayout";
 import { Eye, Edit, Trash2 } from "lucide-react";
 import { fetchBrands } from "../../services/adminService";
 
@@ -11,7 +11,7 @@ const BrandsPage = () => {
   const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
-    const fetchBrands = async () => {
+    const fetchBrandsData = async () => {
       try {
         const data = await fetchBrands();
         setBrands(data);
@@ -19,7 +19,7 @@ const BrandsPage = () => {
         console.error("Error fetching brands:", error);
       }
     };
-    fetchBrands();
+    fetchBrandsData();
   }, []);
 
   const filteredBrands = brands.filter((brand) =>
@@ -40,9 +40,8 @@ const BrandsPage = () => {
   };
 
   return (
-    <div className="admin-layout" style={{ display: "flex" }}>
-      <Sidebar />
-      <div className="brands-page" style={{ padding: "20px", flex: 1 }}>
+    <AdminPageLayout>
+      <div>
         <h2>Brands</h2>
         <input
           type="text"
@@ -110,7 +109,7 @@ const BrandsPage = () => {
           </button>
         </div>
       </div>
-    </div>
+    </AdminPageLayout>
   );
 };
 

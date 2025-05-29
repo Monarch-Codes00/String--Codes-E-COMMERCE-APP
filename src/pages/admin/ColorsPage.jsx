@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import Sidebar from "../../components/Sidebar";
+import AdminPageLayout from "../../components/AdminPageLayout";
 import { Eye, Edit, Trash2 } from "lucide-react";
 
 const PAGE_SIZE = 5;
@@ -44,9 +44,8 @@ const ColorsPage = () => {
   };
 
   return (
-    <div className="admin-layout" style={{ display: "flex" }}>
-      <Sidebar />
-      <div className="colors-page" style={{ padding: "20px", flex: 1 }}>
+    <AdminPageLayout>
+      <div>
         <h2>Colors</h2>
         <input
           type="text"
@@ -116,7 +115,7 @@ const ColorsPage = () => {
           </button>
         </div>
       </div>
-    </div>
+    </AdminPageLayout>
   );
 };
 

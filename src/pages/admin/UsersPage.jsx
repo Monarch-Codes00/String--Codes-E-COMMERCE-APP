@@ -1,13 +1,12 @@
 import { useEffect, useState } from "react";
-import { fetchUsersList } from "../../services/adminService";
-import Sidebar from "../../components/Sidebar";
+import { fetchUsersList, deleteUser } from "../../services/adminService";
+import AdminPageLayout from "../../components/AdminPageLayout";
 import { Eye, Edit, Trash2 } from "lucide-react";
 
 const PAGE_SIZE = 5;
 
 const UsersPage = () => {
   const [users, setUsers] = useState([]);
-  const [searchTerm, setSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [showAddForm, setShowAddForm] = useState(false);
 
@@ -23,13 +22,9 @@ const UsersPage = () => {
     fetchUsers();
   }, []);
 
-  const filteredUsers = users.filter((user) =>
-    user.fullName.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  const totalPages = Math.ceil(users.length / PAGE_SIZE);
 
-  const totalPages = Math.ceil(filteredUsers.length / PAGE_SIZE);
-
-  const paginatedUsers = filteredUsers.slice(
+  const paginatedUsers = users.slice(
     (currentPage - 1) * PAGE_SIZE,
     currentPage * PAGE_SIZE
   );
@@ -41,9 +36,8 @@ const UsersPage = () => {
   };
 
   return (
-    <div className="admin-layout" style={{ display: "flex" }}>
-      <Sidebar />
-      <div className="users-page" style={{ padding: "20px", flex: 1 }}>
+    <AdminPageLayout>
+      <div>
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
           <h2>Users</h2>
           <button
@@ -67,21 +61,7 @@ const UsersPage = () => {
             <p>Add User Form goes here.</p>
           </div>
         )}
-        <input
-          type="text"
-          placeholder="Search users..."
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-          style={{
-            marginBottom: "10px",
-            padding: "8px",
-            width: "100%",
-            maxWidth: "400px",
-            borderRadius: "4px",
-            border: "1px solid #ccc",
-          }}
-        />
-        <table style={{ width: "100%", borderCollapse: "collapse" }}>
+        <table style={{ width: "100%", borderCollapse: "collapse", marginTop: "10px" }}>
           <thead>
             <tr style={{ borderBottom: "1px solid #ddd" }}>
               <th style={{ textAlign: "left", padding: "8px" }}>User</th>
@@ -158,7 +138,7 @@ const UsersPage = () => {
           </button>
         </div>
       </div>
-    </div>
+    </AdminPageLayout>
   );
 };
 

@@ -24,6 +24,7 @@ import {
   Legend,
   CartesianGrid,
 } from "recharts";
+import AdminPageLayout from "../../components/AdminPageLayout";
 
 const sections = [
   { name: "Dashboard", icon: <BarChart2 />, key: "dashboard" },
@@ -137,24 +138,10 @@ export default function AdminDashboard() {
   };
 
   return (
-    <div className="flex h-screen">
-      <aside className="w-64 bg-gray-100 p-4 border-r">
-        <h1 className="text-2xl font-bold mb-6">Admin Panel</h1>
-        <nav className="space-y-2">
-          {sections.map((section) => (
-            <Button
-              key={section.key}
-              variant={activeSection === section.key ? "default" : "ghost"}
-              className="w-full justify-start"
-              onClick={() => setActiveSection(section.key)}
-            >
-              <span className="mr-2">{section.icon}</span>
-              {section.name}
-            </Button>
-          ))}
-        </nav>
-      </aside>
-      <main className="flex-1 p-6 overflow-y-auto">{renderSection()}</main>
-    </div>
+    <AdminPageLayout>
+      <div className="flex h-screen flex-col p-6 overflow-y-auto">
+        {renderSection()}
+      </div>
+    </AdminPageLayout>
   );
 }

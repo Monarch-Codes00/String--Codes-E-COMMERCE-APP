@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import Sidebar from "../../components/Sidebar";
+import AdminPageLayout from "../../components/AdminPageLayout";
 import { Eye, Edit, Trash2 } from "lucide-react";
 
 const PAGE_SIZE = 5;
@@ -34,9 +34,8 @@ const OrdersPage = () => {
   };
 
   return (
-    <div className="admin-layout" style={{ display: "flex" }}>
-      <Sidebar />
-      <div className="orders-page" style={{ padding: "20px", flex: 1 }}>
+    <AdminPageLayout>
+      <div>
         <h2>Orders</h2>
         <input
           type="text"
@@ -110,7 +109,7 @@ const OrdersPage = () => {
           </button>
         </div>
       </div>
-    </div>
+    </AdminPageLayout>
   );
 };
 

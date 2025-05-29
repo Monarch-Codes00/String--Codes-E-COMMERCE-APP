@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { fetchProductsList } from "../../services/adminService";
-import Sidebar from "../../components/Sidebar";
+import AdminPageLayout from "../../components/AdminPageLayout";
 import CreateProductForm from "./CreateProductForm";
 
 const PAGE_SIZE = 5;
@@ -46,9 +46,8 @@ const ProductsPage = () => {
   };
 
   return (
-    <div className="admin-layout" style={{ display: "flex" }}>
-      <Sidebar />
-      <div className="products-page" style={{ padding: "20px", flex: 1 }}>
+    <AdminPageLayout>
+      <div>
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
           <h2>Products</h2>
           <button
@@ -123,7 +122,7 @@ const ProductsPage = () => {
           </button>
         </div>
       </div>
-    </div>
+    </AdminPageLayout>
   );
 };
 
