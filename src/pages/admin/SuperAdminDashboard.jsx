@@ -1,4 +1,3 @@
-import React from "react";
 import { useAuth } from "../../contexts/AuthContext";
 import { useEffect, useState } from "react";
 import { fetchUsersList, fetchProductsList } from "../../services/adminService";
@@ -18,18 +17,7 @@ import {
   Legend,
   CartesianGrid,
 } from "recharts";
-import { ShoppingCart, Users, Truck, DollarSign, LayoutGrid, Tag, Palette, Star } from "lucide-react";
-
-const iconMap = {
-  LayoutGrid,
-  Tag,
-  Users,
-  ShoppingCart,
-  Palette,
-  DollarSign,
-  Star,
-  Truck,
-};
+import { ShoppingCart, Users, Truck, DollarSign } from "lucide-react";
 
 const COLORS = ["#3bc9db", "#6c757d", "#e9ecef"];
 
@@ -100,100 +88,36 @@ const SuperAdminDashboard = () => {
   return (
     <div className="admin-dashboard" style={{ minHeight: "100vh" }}>
       {/* Sidebar */}
-      <aside
-        className="admin-sidebar"
-        style={{
-          minHeight: "100vh",
-          width: "60px",
-          transition: "width 0.3s ease",
-          overflowX: "hidden",
-          backgroundColor: "#1f2937",
-          color: "#f9fafb",
-          display: "flex",
-          flexDirection: "column",
-        }}
-        onMouseEnter={(e) => {
-          e.currentTarget.style.width = "200px";
-          const labels = e.currentTarget.querySelectorAll(".sidebar-label");
-          labels.forEach((label) => {
-            label.style.opacity = "1";
-            label.style.display = "inline-block";
-          });
-          const header = e.currentTarget.querySelector(".sidebar-header h2");
-          if (header) header.style.opacity = "1";
-        }}
-        onMouseLeave={(e) => {
-          e.currentTarget.style.width = "60px";
-          const labels = e.currentTarget.querySelectorAll(".sidebar-label");
-          labels.forEach((label) => {
-            label.style.opacity = "0";
-            label.style.display = "none";
-          });
-          const header = e.currentTarget.querySelector(".sidebar-header h2");
-          if (header) header.style.opacity = "0";
-        }}
-      >
-        <div
-          className="sidebar-header"
-          style={{
-            padding: "1rem",
-            fontSize: "1.25rem",
-            fontWeight: "bold",
-            textAlign: "center",
-            borderBottom: "1px solid rgba(255,255,255,0.1)",
-            whiteSpace: "nowrap",
-            overflow: "hidden",
-          }}
-        >
-          <h2 style={{ opacity: 0, margin: 0, transition: "opacity 0.3s ease" }}>
-            Admin Panel
-          </h2>
+      <aside className="admin-sidebar" style={{ minHeight: "100vh" }}>
+        <div className="sidebar-header">
+          <h2>Admin Panel</h2>
         </div>
-        <nav className="sidebar-nav" style={{ flexGrow: 1 }}>
-          <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
-            {[
-              { to: "/superadmin-dashboard", label: "Dashboard", icon: "LayoutGrid" },
-              { to: "/admin/products", label: "Products", icon: "Tag" },
-              { to: "/superadmin-dashboard/users", label: "Users", icon: "Users" },
-              { to: "/superadmin-dashboard/orders", label: "Orders", icon: "ShoppingCart" },
-              { to: "/superadmin-dashboard/colors", label: "Colors", icon: "Palette" },
-              { to: "/superadmin-dashboard/brands", label: "Brands", icon: "DollarSign" },
-              { to: "/superadmin-dashboard/reviews", label: "Reviews", icon: "Star" },
-              { to: "/superadmin-dashboard/statistics", label: "Statistics", icon: "Truck" },
-            ].map(({ to, label, icon }) => {
-              const IconComponent = iconMap[icon];
-              return (
-                <li key={to} style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
-                  <Link
-                    to={to}
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                      padding: "0.75rem 1rem",
-                      color: "inherit",
-                      textDecoration: "none",
-                      width: "100%",
-                      whiteSpace: "nowrap",
-                      justifyContent: "flex-start",
-                    }}
-                  >
-                    {IconComponent && <IconComponent size={20} />}
-                    <span
-                      className="sidebar-label"
-                      style={{
-                        marginLeft: "12px",
-                        opacity: 0,
-                        transition: "opacity 0.3s ease",
-                        overflow: "hidden",
-                        display: "none",
-                      }}
-                    >
-                      {label}
-                    </span>
-                  </Link>
-                </li>
-              );
-            })}
+        <nav className="sidebar-nav">
+          <ul>
+            <li>
+              <Link to="/superadmin-dashboard">Dashboard</Link>
+            </li>
+            <li>
+              <Link to="/admin/products">Products</Link>
+            </li>
+            <li>
+              <Link to="/superadmin-dashboard/users">Users</Link>
+            </li>
+            <li>
+              <Link to="/superadmin-dashboard/orders">Orders</Link>
+            </li>
+            <li>
+              <Link to="/superadmin-dashboard/colors">Colors</Link>
+            </li>
+            <li>
+              <Link to="/superadmin-dashboard/brands">Brands</Link>
+            </li>
+            <li>
+              <Link to="/superadmin-dashboard/reviews">Reviews</Link>
+            </li>
+            <li>
+              <Link to="/superadmin-dashboard/statistics">Statistics</Link>
+            </li>
           </ul>
         </nav>
       </aside>
