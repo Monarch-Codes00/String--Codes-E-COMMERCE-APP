@@ -110,7 +110,21 @@ const UsersPage = () => {
                   <button title="Edit" style={{ background: "none", border: "none", cursor: "pointer" }}>
                     <Edit size={18} color="#22c55e" />
                   </button>
-                  <button title="Delete" style={{ background: "none", border: "none", cursor: "pointer" }}>
+                  <button
+                    title="Delete"
+                    style={{ background: "none", border: "none", cursor: "pointer" }}
+                    onClick={async () => {
+                      if (window.confirm(`Are you sure you want to delete user ${user.fullName}?`)) {
+                        try {
+                          await deleteUser(user._id);
+                          setUsers((prevUsers) => prevUsers.filter((u) => u._id !== user._id));
+                        } catch (error) {
+                          console.error("Failed to delete user:", error);
+                          alert("Failed to delete user. Please try again.");
+                        }
+                      }
+                    }}
+                  >
                     <Trash2 size={18} color="#ef4444" />
                   </button>
                 </td>

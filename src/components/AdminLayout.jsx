@@ -28,6 +28,7 @@ const AdminLayout = () => {
           color: "#f9fafb",
           display: "flex",
           flexDirection: "column",
+          whiteSpace: "nowrap",
         }}
         onMouseEnter={(e) => {
           e.currentTarget.style.width = "200px";
@@ -35,9 +36,13 @@ const AdminLayout = () => {
           labels.forEach((label) => {
             label.style.opacity = "1";
             label.style.display = "inline-block";
+            label.style.transition = "opacity 0.3s ease";
           });
           const header = e.currentTarget.querySelector(".sidebar-header h2");
-          if (header) header.style.opacity = "1";
+          if (header) {
+            header.style.opacity = "1";
+            header.style.transition = "opacity 0.3s ease";
+          }
         }}
         onMouseLeave={(e) => {
           e.currentTarget.style.width = "60px";
@@ -45,9 +50,13 @@ const AdminLayout = () => {
           labels.forEach((label) => {
             label.style.opacity = "0";
             label.style.display = "none";
+            label.style.transition = "opacity 0.3s ease";
           });
           const header = e.currentTarget.querySelector(".sidebar-header h2");
-          if (header) header.style.opacity = "0";
+          if (header) {
+            header.style.opacity = "0";
+            header.style.transition = "opacity 0.3s ease";
+          }
         }}
       >
         <div
