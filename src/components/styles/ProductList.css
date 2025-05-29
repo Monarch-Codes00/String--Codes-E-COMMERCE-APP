@@ -1,96 +1,186 @@
 .product-list-page {
   display: flex;
-  min-height: calc(100vh - 64px); /* Adjust for navbar height */
+  padding: 20px 40px;
+  height: 100vh;
+  width: 100%;
+  margin: 0 auto;
+  background-color: #fff;
+  gap: 20px;
+  box-sizing: border-box;
+}
+
+.product-sidebar {
+  width: 250px;
+  background-color: #f8f9fa;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  box-sizing: border-box;
+  height: fit-content;
+  position: sticky;
+  top: 80px;
+}
+
+.search-bar input {
+  width: 100%;
+  padding: 10px 12px;
+  font-size: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  outline: none;
+  transition: border-color 0.3s ease;
+}
+
+.search-bar input:focus {
+  border-color: #3bc9db;
+}
+
+.category-filter h3,
+.price-filter h3 {
+  margin-bottom: 10px;
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: #333;
+}
+
+.category-filter ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.category-filter li {
+  padding: 8px 10px;
+  cursor: pointer;
+  border-radius: 4px;
+  margin-bottom: 6px;
+  transition: background-color 0.3s ease;
+  color: #555;
+}
+
+.category-filter li:hover,
+.category-filter li.selected {
+  background-color: #3bc9db;
+  color: white;
+}
+
+.price-filter div {
+  display: flex;
+  gap: 10px;
+}
+
+.price-filter input {
+  width: 100%;
+  padding: 8px 10px;
+  font-size: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  outline: none;
+  transition: border-color 0.3s ease;
+}
+
+.price-filter input:focus {
+  border-color: #3bc9db;
 }
 
 .product-list-container {
-  /* padding: 80px 20px 40px 20px; */
-  padding: 20px 100px ;
-  max-width: 1200px;
-  min-width: 100%;
-  margin: 0 auto;
-  background-color: #fff;
   flex-grow: 1;
-  position: relative;
 }
 
 .product-list-container h2 {
   font-size: 1.5rem;
   font-weight: 700;
-  margin-bottom: 30px;
+  margin-bottom: 20px;
   color: #222;
-  text-align: left;
-  letter-spacing: 1.5px;
 }
 
 .product-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-  gap: 30px;
+  gap: 25px;
 }
 
 .product-card {
-  border: none;
-  border-radius: 8px;
-  padding: 20px;
   background-color: #f9f9f9;
-  text-align: center;
-  cursor: pointer;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border-radius: 8px;
+  overflow: hidden;
   box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+  cursor: pointer;
 }
 
 .product-card:hover {
-  transform: translateY(-5px);
   box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+  transform: translateY(-5px);
+}
+
+.product-link {
+  display: block;
+  color: inherit;
+  text-decoration: none;
+  padding: 15px;
 }
 
 .product-image {
   width: 100%;
   height: 180px;
   object-fit: cover;
-  border-radius: 20px;
-  margin-bottom: 15px;
-  box-shadow: inset 0 0 10px rgba(0,0,0,0.1);
-  transition: box-shadow 0.3s ease;
+  border-radius: 6px;
+  margin-bottom: 12px;
+  transition: transform 0.3s ease;
 }
 
-.product-image:hover {
-  box-shadow: inset 0 0 20px rgba(0,0,0,0.2);
+.product-card:hover .product-image {
+  transform: scale(1.05);
 }
 
-.product-card h3 {
-  font-size: 1.3rem;
+.product-name {
+  font-size: 1.2rem;
   font-weight: 700;
+  margin: 0 0 8px 0;
   color: #111;
-  margin-bottom: 10px;
-  letter-spacing: 0.5px;
 }
 
-.product-card p {
+.product-price {
   font-size: 1.1rem;
   font-weight: 700;
-  color: #e63946; /* bold red color for price */
+  color: #e63946;
   margin: 0;
 }
 
 .see-more-btn {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 30px;
+  display: block;
+  margin: 30px auto 0 auto;
+  padding: 12px 30px;
   font-size: 1.2rem;
   font-weight: 700;
-  font-style: italic;
-  background-color: whitesmoke;
-  color: #222;
+  background-color: #3bc9db;
+  color: white;
   border: none;
+  border-radius: 6px;
   cursor: pointer;
-  z-index: 1001;
   transition: background-color 0.3s ease;
 }
 
 .see-more-btn:hover {
-  background-color: #dcdcdc;
+  background-color: #2a9ab8;
+}
+
+@media (max-width: 768px) {
+  .product-list-page {
+    flex-direction: column;
+    padding: 20px;
+  }
+
+  .product-sidebar {
+    width: 100%;
+    position: relative;
+    top: auto;
+    margin-bottom: 20px;
+  }
+
+  .product-grid {
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 15px;
+  }
 }

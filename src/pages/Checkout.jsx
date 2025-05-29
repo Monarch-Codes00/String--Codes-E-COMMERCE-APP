@@ -323,22 +323,7 @@ const Checkout = () => {
     <div className="checkout-container">
       <div className="checkout-main">
         <div className="checkout-left">
-          <div className="shipping-address">
-            <label>Shipping address</label>
-            {isEditingAddress ? (
-              <input
-                type="text"
-                value={shippingAddress}
-                onChange={(e) => setShippingAddress(e.target.value)}
-                onBlur={() => setIsEditingAddress(false)}
-                autoFocus
-              />
-            ) : (
-              <div className="address-display" onClick={() => setIsEditingAddress(true)}>
-                {shippingAddress} <span className="edit-icon">✏️</span>
-              </div>
-            )}
-          </div>
+          {/* Shipping address section removed as per user request */}
 
           <div className="payment-info">
             <label>Payment information</label>
@@ -348,21 +333,21 @@ const Checkout = () => {
                 onClick={() => setPaymentMethod("mastercard")}
                 type="button"
               >
-                <img src="/mastercard.png" alt="Mastercard" />
+                <img src="/images/mastercard-logo.png" alt="Mastercard" />
               </button>
               <button
                 className={`payment-method ${paymentMethod === "paypal" ? "selected" : ""}`}
                 onClick={() => setPaymentMethod("paypal")}
                 type="button"
               >
-                <img src="/paypal.png" alt="Paypal" />
+                <img src="/images/paypal-logo.png" alt="Paypal" />
               </button>
               <button
                 className={`payment-method ${paymentMethod === "klarna" ? "selected" : ""}`}
                 onClick={() => setPaymentMethod("klarna")}
                 type="button"
               >
-                <img src="/klarna.png" alt="Klarna" />
+                <img src="/images/klarna-logo.png" alt="Klarna" />
               </button>
             </div>
 

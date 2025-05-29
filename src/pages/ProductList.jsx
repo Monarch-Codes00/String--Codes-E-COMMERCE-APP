@@ -1,11 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { fetchCategories } from "../services/adminService";
 import apiClient from "../services/apiClient";
 import "../components/styles/ProductList.css";
 
 const ProductList = () => {
   const [products, setProducts] = useState([]);
-  const [filteredCategory, setFilteredCategory] = useState(null);
+  const [categories, setCategories] = useState([]);
+  const [searchText, setSearchText] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState(null);
+  const [priceRange, setPriceRange] = useState({ min: "", max: "" });
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -13,7 +17,6 @@ const ProductList = () => {
     const fetchProducts = async () => {
       try {
         const response = await apiClient.get("/products");
-        console.log("Products API response:", response.data);
         setProducts(Array.isArray(response.data) ? response.data : response.data.products || []);
       } catch (err) {
         setError("Failed to load products.");
@@ -21,16 +24,46 @@ const ProductList = () => {
         setLoading(false);
       }
     };
+
+    const fetchCategoryList = async () => {
+      try {
+        const cats = await fetchCategories();
+        setCategories(cats);
+      } catch (err) {
+        console.error("Failed to load categories", err);
+      }
+    };
+
     fetchProducts();
+    fetchCategoryList();
   }, []);
 
-  const handleSelectCategory = (category) => {
-    setFilteredCategory(category);
+  const handleSearchChange = (e) => {
+    setSearchText(e.target.value);
   };
 
-  const filteredProducts = filteredCategory
-    ? products.filter((product) => product.category === filteredCategory)
-    : products;
+  const handleCategorySelect = (category) => {
+    setSelectedCategory(category === selectedCategory ? null : category);
+  };
+
+  const handlePriceChange = (e) => {
+    const { name, value } = e.target;
+    setPriceRange((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const filterProducts = () => {
+    return products.filter((product) => {
+      const matchesSearch = product.name.toLowerCase().includes(searchText.toLowerCase());
+      const matchesCategory = selectedCategory ? (product.category === (selectedCategory.name || selectedCategory)) : true;
+      const price = product.price || 0;
+      const minPrice = priceRange.min ? parseFloat(priceRange.min) : 0;
+      const maxPrice = priceRange.max ? parseFloat(priceRange.max) : Number.MAX_VALUE;
+      const matchesPrice = price >= minPrice && price <= maxPrice;
+      return matchesSearch && matchesCategory && matchesPrice;
+    });
+  };
+
+  const filteredProducts = filterProducts();
 
   const [displayCount, setDisplayCount] = React.useState(8);
 
@@ -45,29 +78,74 @@ const ProductList = () => {
 
   return (
     <div className="product-list-page">
-      <div className="product-list-container">
-        <h2>{filteredCategory ? `Category: ${filteredCategory}` : "Products"}</h2>
+      <aside className="product-sidebar">
+        <div className="search-bar">
+          <input
+            type="text"
+            placeholder="Search products..."
+            value={searchText}
+            onChange={handleSearchChange}
+          />
+        </div>
+        <div className="category-filter">
+          <h3>Categories</h3>
+          <ul>
+            {categories.map((cat) => (
+              <li
+                key={cat._id || cat.id || cat}
+                className={selectedCategory === cat ? "selected" : ""}
+                onClick={() => handleCategorySelect(cat)}
+              >
+                {cat.name || cat}
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div className="price-filter">
+          <h3>Price Range</h3>
+          <div>
+            <input
+              type="number"
+              name="min"
+              placeholder="Min"
+              value={priceRange.min}
+              onChange={handlePriceChange}
+              min="0"
+            />
+            <input
+              type="number"
+              name="max"
+              placeholder="Max"
+              value={priceRange.max}
+              onChange={handlePriceChange}
+              min="0"
+            />
+          </div>
+        </div>
+      </aside>
+      <main className="product-list-container">
+        <h2>{selectedCategory ? `Category: ${selectedCategory.name || selectedCategory}` : "All Products"}</h2>
         <div className="product-grid">
           {displayedProducts.map((product) => (
             <div key={product._id} className="product-card">
-              <Link to={`/product/${product._id}`}>
+              <Link to={`/product/${product._id}`} className="product-link">
                 <img
                   src={product.images && product.images[0]}
                   alt={product.name}
                   className="product-image"
                 />
-                <h3>{product.name}</h3>
-                <p>${product.price.toFixed(2)}</p>
+                <h3 className="product-name">{product.name}</h3>
+                <p className="product-price">${product.price.toFixed(2)}</p>
               </Link>
             </div>
           ))}
         </div>
         {displayCount < filteredProducts.length && (
           <button className="see-more-btn" onClick={handleSeeMore}>
-            See More
+            Load More
           </button>
         )}
-      </div>
+      </main>
     </div>
   );
 };

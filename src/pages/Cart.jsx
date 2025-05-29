@@ -68,7 +68,7 @@ const Cart = () => {
                   {product.stock > 0 ? `${product.stock} units left` : "Out of stock"}
                 </p>
               )}
-              <p className="shipping-info">JUMIA <span className="express">EXPRESS</span></p>
+              <p className="shipping-info">STRING <span className="express">EXPRESS</span></p>
               <button className="remove-button" onClick={() => removeItem(product._id)}>
                 🗑 Remove
               </button>
