@@ -29,11 +29,11 @@ const HomePage = () => {
           </div>
         </div>
         <div className="home-image-container">
-          <img
-            src="/images/homepage-model.jpg"
+          {/* <img
+            src="/images/your-provided-model-image.jpg"
             alt="Model"
             className="home-image"
-          />
+          /> */}
           <div className="gift-barcode">
             <div className="barcode">SCAN TO COLLECT YOUR SHOPPING GIFT</div>
             <img
