@@ -1,24 +1,48 @@
 import React from "react";
-import "../components/styles/HomePage.css"; // Import our vanilla CSS file
+import "../components/styles/HomePage.css";
 
 const HomePage = () => {
   return (
     <div className="home-container">
-      <h2 className="home-title">Stringcode Limited</h2>
-      <p className="home-description">
-        Seamlessly manage your dashboard, profile, and accounts. Register now or
-        login to get started!
-      </p>
-      <div className="home-links">
-        <a href="/" className="home-link home-link-home">
-          Home
-        </a>
-        <a href="/register" className="home-link home-link-register">
-          Register
-        </a>
-        <a href="/login" className="home-link home-link-login">
-          Login
-        </a>
+      <div className="home-content">
+        <div className="home-text">
+          <h1>
+            Eco-friendly <br />
+            shopping, delivered <br />
+            to your doorstep
+          </h1>
+          <div className="shopping-buttons">
+            <button>WOMEN</button>
+            <button>SWIMMING</button>
+            <button>MEN</button>
+            <button>SHOPPING</button>
+           
+          </div>
+          <p className="home-subtext">
+            Discover sustainable products and enjoy guilt-free shopping with
+            eco-conscious choices
+          </p>
+          <div className="action-buttons">
+            <button className="start-shopping">Start Shopping</button>
+            <a href="/register" className="btn-register">Register</a>
+            <a href="/login" className="btn-login">Login</a>
+          </div>
+        </div>
+        <div className="home-image-container">
+          <img
+            src="/images/homepage-model.jpg"
+            alt="Model"
+            className="home-image"
+          />
+          <div className="gift-barcode">
+            <div className="barcode">SCAN TO COLLECT YOUR SHOPPING GIFT</div>
+            <img
+              src="/images/your-provided-image.jpg"
+              alt="Gift Avatar"
+              className="gift-avatar"
+            />
+          </div>
+        </div>
       </div>
     </div>
   );

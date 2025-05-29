@@ -1,72 +1,154 @@
-
-
-/* Container styles to center content, full viewport height, and background gradient */
 .home-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    min-height: 100vh;
-    background: linear-gradient(to right, #ebf8ff, #bee3f8); /* approximate gradient from blue-100 to blue-200 */
-    color: #2d3748; /* gray-800 */
-    text-align: center;
-    padding: 20px;
-  }
-  
-  /* Title styles: large, bold text with bottom margin */
-  .home-title {
-    font-size: 2.5rem; /* approximates Tailwind's text-4xl */
-    font-weight: bold;
-    margin-bottom: 1.5rem;
-  }
-  
-  /* Description styles: slightly larger text, centered, with bottom margin and max width */
-  .home-description {
-    font-size: 1.125rem; /* approximates Tailwind's text-lg */
-    margin-bottom: 2rem;
-    max-width: 28rem; /* approximates Tailwind's max-w-md */
-  }
-  
-  /* Container for links with horizontal spacing */
-  .home-links {
-    display: flex;
-    gap: 1rem; /* equivalent to Tailwind's space-x-4 */
-  }
-  
-  /* General styles for the links (buttons) */
-  .home-link {
-    display: inline-block;
-    padding: 0.5rem 1rem;
-    font-weight: 600;
-    border-radius: 0.375rem; /* approximates Tailwind's rounded */
-    text-decoration: none;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    transition: background-color 0.3s, opacity 0.3s;
-  }
-  
-  /* Hover effect: slightly lower opacity */
-  .home-link:hover {
-    opacity: 0.9;
-  }
-  
-  /* Specific styles for the Home button */
-  .home-link-home {
-    background-color: #ffffff;
-    color: #3182ce; /* approximates blue-600 */
-    border: 1px solid #e2e8f0;
-  }
-  
-  /* Specific styles for the Register button */
-  .home-link-register {
-    background-color: #3182ce; /* approximates blue-500 */
-    color: #ffffff;
-    border: 1px solid #3182ce;
-  }
-  
-  /* Specific styles for the Login button */
-  .home-link-login {
-    background-color: #38a169; /* approximates green-500 */
-    color: #ffffff;
-    border: 1px solid #38a169;
-  }
-  
+  width: 100%;
+  height: 100vh;
+  background-color: #d9e3e8;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Arial', sans-serif;
+  overflow: hidden;
+}
+
+.home-content {
+  display: flex;
+  max-width: 1200px;
+  width: 100%;
+  padding: 20px;
+  box-sizing: border-box;
+  position: relative;
+}
+
+.home-text {
+  flex: 1;
+  color: #fff;
+  padding: 40px 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-shadow: 3px 3px 12px rgba(0, 0, 0, 0.9);
+}
+
+.home-text h1 {
+  font-size: 3.5rem;
+  font-weight: 700;
+  line-height: 1.2;
+  margin-bottom: 20px;
+  text-shadow: 4px 4px 14px rgba(0, 0, 0, 1);
+}
+
+.highlight {
+  background-color: #fff176;
+  color: #000;
+  padding: 0 8px;
+  border-radius: 4px;
+}
+
+.shopping-buttons {
+  margin-bottom: 20px;
+}
+
+.shopping-buttons button {
+  background: #fff;
+  border: none;
+  border-radius: 20px;
+  padding: 8px 16px;
+  margin-right: 10px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.shopping-buttons button:hover {
+  background-color: #f0f0f0;
+}
+
+.home-subtext {
+  font-size: 1rem;
+  margin-bottom: 30px;
+  max-width: 400px;
+  color: #f0f0f0;
+  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.8);
+}
+
+.action-buttons {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.start-shopping {
+  background-color: #000;
+  color: #fff;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 30px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.start-shopping:hover {
+  background-color: #333;
+}
+
+.btn-register,
+.btn-login {
+  color: #fff;
+  text-decoration: none;
+  font-weight: 600;
+  padding: 10px 20px;
+  border-radius: 30px;
+  border: 2px solid #fff;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.btn-register:hover,
+.btn-login:hover {
+  background-color: #fff;
+  color: #000;
+}
+
+.home-image-container {
+  flex: 1;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.home-image {
+  max-width: 100%;
+  height: auto;
+  border-radius: 20px;
+  object-fit: cover;
+}
+
+.gift-barcode {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  background: #fff;
+  border-radius: 12px;
+  padding: 10px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.15);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 140px;
+}
+
+.barcode {
+  font-size: 10px;
+  font-weight: 700;
+  margin-bottom: 8px;
+  text-align: center;
+  color: #000;
+}
+
+.gift-avatar {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #000;
+}
